@@ -15,7 +15,7 @@ An asset is complete only when its individual final binary exists on the `develo
 - [x] `02 Homepage/TOTFR_HOME_Hero_Title_v01.webp`
 
 ## Chapters
-- [ ] `03 Chapters/TOTFR_CH01_TheMissing_Banner_v01.webp`
+- [x] `03 Chapters/TOTFR_CH01_TheMissing_Banner_v01.webp`
 - [ ] `03 Chapters/TOTFR_CH02_ChildAndRobot_Banner_v01.webp`
 - [ ] `03 Chapters/TOTFR_CH03_WoundNeverHealed_Banner_v01.webp`
 - [ ] `03 Chapters/TOTFR_CH04_RootsOfOmen_Banner_v01.webp`
