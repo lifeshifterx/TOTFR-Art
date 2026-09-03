@@ -1,0 +1,36 @@
+name: Decode TOTFR Staged Assets
+
+on:
+  push:
+    branches: [development]
+    paths:
+      - '_staging_b64/manifest.tsv'
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: development
+          fetch-depth: 0
+      - name: Decode staged asset chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS=$'\t' read -r key target; do
+            [ -n "$key" ] || continue
+            mkdir -p "$(dirname "$target")"
+            cat _staging_b64/${key}.part* | tr -d '\n\r' | base64 -d > "$target"
+          done < _staging_b64/manifest.tsv
+          rm -rf _staging_b64
+      - name: Commit decoded production assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Decode staged TOTFR production assets"
+          git push origin HEAD:development
