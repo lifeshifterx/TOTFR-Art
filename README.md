@@ -1,17 +1,11 @@
-# Tales of the Forgotten Realms Art Library
+# Tales of the Forgotten Realms — Art Package
 
-This repository contains the master production artwork for the Tales of the Forgotten Realms campaign.
+Local production package for the TOTFR Notion campaign visual refresh.
 
-## Structure
-- 01 Branding
-- 02 Homepage
-- 03 Chapters
-- 04 Categories
-- 05 Locations
-- 06 NPCs
-- 07 Factions
-- 08 Creatures
-- 09 Magic Items
-- 10 Utility
+- Production assets: 115
+- Required production assets missing: 0
+- Repository target: `lifeshifterx/TOTFR-Art`
+- Target branch: `development`
+- Maps folder is reserved for later map-specific production and is not part of the current completion gate.
 
-Assets are produced individually and tracked as production-ready masters.
+The `TOTFR_Art_Package_GitHub` mirror is optimized for GitHub/Notion transport while preserving the exact production folder structure.

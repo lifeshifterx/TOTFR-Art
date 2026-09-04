@@ -1,0 +1,22 @@
+{
+  "production_expected": 115,
+  "missing": 0,
+  "folder_counts": {
+    "01 Branding": 3,
+    "02 Homepage": 2,
+    "03 Chapters": 8,
+    "04 Categories": 15,
+    "05 Locations": 8,
+    "06 NPCs": 18,
+    "07 Factions": 14,
+    "08 Creatures": 2,
+    "09 Magic Items": 4,
+    "10 Utility": 19,
+    "11 Maps": 0,
+    "12 Decorative": 22,
+    "13 Source Prompts": 1
+  },
+  "upload_batches": 44,
+  "optimized_bytes": 8703399,
+  "max_optimized_file_bytes": 157128
+}

@@ -1,0 +1,136 @@
+# TOTFR Local Production Manifest
+
+Production assets expected: 115
+Missing: 0
+
+## Coverage
+- 01 Branding: 3 files
+- 02 Homepage: 2 files
+- 03 Chapters: 8 files
+- 04 Categories: 15 files
+- 05 Locations: 8 files
+- 06 NPCs: 18 files
+- 07 Factions: 14 files
+- 08 Creatures: 2 files
+- 09 Magic Items: 4 files
+- 10 Utility: 19 files
+- 11 Maps: 0 files
+- 12 Decorative: 22 files
+- 13 Source Prompts: 1 files
+
+## Production files
+- [x] `01 Branding/TOTFR_BRAND_MasterLogo_Horizontal_v01.webp`
+- [x] `01 Branding/TOTFR_BRAND_MasterEmblem_Square_v01.webp`
+- [x] `01 Branding/TOTFR_BRAND_SealedChronicle_v01.webp`
+- [x] `02 Homepage/TOTFR_HOME_Hero_Title_v01.webp`
+- [x] `02 Homepage/TOTFR_HOME_Background_Clean_v01.webp`
+- [x] `03 Chapters/TOTFR_CH01_TheMissing_Banner_v01.webp`
+- [x] `03 Chapters/TOTFR_CH02_ChildAndRobot_Banner_v01.webp`
+- [x] `03 Chapters/TOTFR_CH03_WoundNeverHealed_Banner_v01.webp`
+- [x] `03 Chapters/TOTFR_CH04_RootsOfOmen_Banner_v01.webp`
+- [x] `03 Chapters/TOTFR_CH05_ConcealedMist_Banner_v01.webp`
+- [x] `03 Chapters/TOTFR_NARRATIVE_UnmarkedPortals_v01.webp`
+- [x] `03 Chapters/TOTFR_NARRATIVE_VendimarMystery_v01.webp`
+- [x] `03 Chapters/TOTFR_NARRATIVE_IronKeyOpens_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_BasesAndLairs_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Creatures_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Factions_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_MagicItems_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_NPCs_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Regions_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Settlements_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Shops_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Narrative_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Locations_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Ancestries_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Subclasses_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Backgrounds_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Feats_Cover_v01.webp`
+- [x] `04 Categories/TOTFR_CAT_Spells_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Areas_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Traps_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Puzzles_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Clues_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_StoryArcs_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Quests_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Scenes_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_PlotHooks_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_EncounterTracker_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_SessionNotes_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Handouts_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_IdeaNotebook_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_DMSecrets_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Player01_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Player02_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Player03_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Player04_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Player05_Cover_v01.webp`
+- [x] `10 Utility/TOTFR_UTIL_Player06_Cover_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_Braakport_Banner_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_Neverwinter_Banner_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_Waterdeep_Banner_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_WhiteBarkCamp_Banner_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_HighForest_Banner_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_PaleTree_Banner_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_SunkenCircleMarkers_Banner_v01.webp`
+- [x] `05 Locations/TOTFR_LOC_WarforgedFactory_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_Brassrun_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_Brassrun_Crest_v01.png`
+- [x] `07 Factions/TOTFR_FACTION_ChorusOfWounds_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_ChorusOfWounds_Crest_v01.png`
+- [x] `07 Factions/TOTFR_FACTION_Ironmere_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_Ironmere_Crest_v01.png`
+- [x] `07 Factions/TOTFR_FACTION_RedRootCircle_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_RedRootCircle_Crest_v01.png`
+- [x] `07 Factions/TOTFR_FACTION_SunkenCircle_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_SunkenCircle_Crest_v01.png`
+- [x] `07 Factions/TOTFR_FACTION_WardensOfWaterdeep_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_WardensOfWaterdeep_Crest_v01.png`
+- [x] `07 Factions/TOTFR_FACTION_WhiteBarkCircle_Banner_v01.webp`
+- [x] `07 Factions/TOTFR_FACTION_WhiteBarkCircle_Crest_v01.png`
+- [x] `06 NPCs/TOTFR_NPC_Abbigail_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_BOLTS_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_EstebanBlackmane_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_CaelthornVire_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_Gorko_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_Kael_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_KalgorianMercius_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_LioraWhiteveil_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_MaerathThornkin_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_MagistrateVarrim_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_OrlaMoonspire_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_Reign_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_RowanBriarblood_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_Salara_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_SerKaelynThrynn_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_Vendimar_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_WardenSera_Portrait_v01.webp`
+- [x] `06 NPCs/TOTFR_NPC_XerthulZar_Portrait_v01.webp`
+- [x] `08 Creatures/TOTFR_CREATURE_CrystalFiend_v01.webp`
+- [x] `08 Creatures/TOTFR_CREATURE_WarforgedTitanRendr_v01.webp`
+- [x] `09 Magic Items/TOTFR_ITEM_AnchorHeart_v01.webp`
+- [x] `09 Magic Items/TOTFR_ITEM_IronKey_v01.webp`
+- [x] `09 Magic Items/TOTFR_ITEM_PortalMap_v01.webp`
+- [x] `09 Magic Items/TOTFR_ITEM_SpellsaberHilt_v01.webp`
+- [x] `12 Decorative/TOTFR_NAV_WorldBuilding_Poster_v01.webp`
+- [x] `12 Decorative/TOTFR_NAV_CharacterOptions_Poster_v01.webp`
+- [x] `12 Decorative/TOTFR_NAV_Campaign_Poster_v01.webp`
+- [x] `12 Decorative/TOTFR_NAV_Dungeon_Poster_v01.webp`
+- [x] `12 Decorative/TOTFR_NAV_Narrative_Poster_v01.webp`
+- [x] `12 Decorative/TOTFR_TITLE_CHI_v01.png`
+- [x] `12 Decorative/TOTFR_TITLE_CHII_v01.png`
+- [x] `12 Decorative/TOTFR_TITLE_CHIII_v01.png`
+- [x] `12 Decorative/TOTFR_TITLE_CHIV_v01.png`
+- [x] `12 Decorative/TOTFR_TITLE_CHV_v01.png`
+- [x] `12 Decorative/TOTFR_DIVIDER_Arcane_v01.png`
+- [x] `12 Decorative/TOTFR_DIVIDER_Roots_v01.png`
+- [x] `12 Decorative/TOTFR_DIVIDER_Celestial_v01.png`
+- [x] `12 Decorative/TOTFR_DIVIDER_Industrial_v01.png`
+- [x] `12 Decorative/TOTFR_DIVIDER_Manuscript_v01.png`
+- [x] `12 Decorative/TOTFR_DIVIDER_Seal_v01.png`
+- [x] `12 Decorative/TOTFR_ICON_Book_v01.png`
+- [x] `12 Decorative/TOTFR_ICON_Sword_v01.png`
+- [x] `12 Decorative/TOTFR_ICON_Map_v01.png`
+- [x] `12 Decorative/TOTFR_ICON_Mask_v01.png`
+- [x] `12 Decorative/TOTFR_ICON_Rune_v01.png`
+- [x] `12 Decorative/TOTFR_ICON_Shield_v01.png`
