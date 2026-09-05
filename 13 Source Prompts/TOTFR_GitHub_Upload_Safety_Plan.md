@@ -1,7 +1,7 @@
 # GitHub Upload Safety Plan
 
 Status: MANDATORY TRANSPORT SOP
-Version: 2026-09-04-HARDENED-V2
+Version: 2026-09-04-HARDENED-V3
 
 ## 1. Non-negotiable text-write envelope
 Observed behavior: connector text writes have previously truncated near ~20 KB. That is a failure observation, not an operating threshold.
@@ -37,15 +37,29 @@ If a document needs more detail, split it into small required modules. The paren
 7. Stop transport scheduling when authoritative audit reports Missing: 0 for the governed target.
 
 ## 4. Guardrail validator gate
-Changes to README authority, mandatory SOPs, Surface Matrix schema/index/shards, Art Specs, this validator, or its workflow require:
+Changes to README authority, mandatory SOPs, Surface Matrix schema/index/shards, Art Specs, this validator, mutation tests, or workflow require:
 1. pre-write byte/sentinel checks;
 2. one write + exact re-fetch;
 3. `tools/validate_totfr_guardrails.py` to pass on the resulting tree;
-4. the `Validate TOTFR Guardrails` GitHub Action to pass when a run is available.
+4. `tools/test_totfr_guardrails.py` to prove known bad states are rejected;
+5. the `Validate TOTFR Guardrails` GitHub Action to complete successfully for the resulting head.
 
-A failed/pending/unknown validator state blocks dependent art/remaster/deployment work. Do not interpret the commit itself as validation. If Actions cannot run or cannot be inspected, perform the same validator against the exact resulting tree in a supported environment and record evidence; otherwise STOP.
+A failed/pending/unknown validator state blocks dependent art/remaster/deployment work. Do not interpret the commit itself as validation.
 
-## 5. Session/resume
+## 5. CURRENT-HEAD CI FALLBACK when branch protection is absent
+Repository protection must be inspected before dependent work. If `development` does not enforce the guardrail status check at the repository level, classify the gate as **PROCESS-ENFORCED**, not repository-enforced.
+
+Before any dependent art generation/remaster, production upload, Surface Matrix authoring, or Notion cleanup/deployment:
+1. Fetch the exact current `development` head SHA.
+2. Fetch the `Validate TOTFR Guardrails` workflow run for that exact SHA.
+3. Require `status=completed` and `conclusion=success`.
+4. Confirm both the clean validator step and mutation-test step completed successfully.
+5. If no exact-head run exists, is queued/in-progress, failed/cancelled/skipped, cannot be inspected, or refers to another SHA: STOP. Never inherit success from an earlier commit.
+6. A later commit invalidates the prior head's CI authorization; repeat this gate.
+
+Preferred repository hardening is branch protection/rulesets requiring the guardrail check and restricting bypass/direct pushes. If current connector permissions cannot administer repository rules, do not pretend protection was enabled; retain this exact-head fallback and report the manual hardening step.
+
+## 6. Session/resume
 Never start a write unless the run can reasonably perform write + re-fetch verification + checkpoint. At any rate/quota/session/tool limit, stop new writes, classify the last attempt PROVEN PERSISTED / PROVEN ABSENT / UNKNOWN when possible, checkpoint, and never infer completion.
 
-END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED-V2
+END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED-V3
