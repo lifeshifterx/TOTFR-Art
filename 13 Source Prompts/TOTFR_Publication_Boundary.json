@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "public_player_repo": "lifeshifterx/TOTFR-Art",
+  "public_player_branch": "development",
+  "dm_private_source_state": "UNCONFIGURED",
+  "dm_private_source_ref": null,
+  "known_public_dm_exposure": [
+    "03 Chapters/TOTFR_CH05_ConcealedMist_Banner_v01.webp",
+    "03 Chapters/TOTFR_NARRATIVE_IronKeyOpens_v01.webp",
+    "03 Chapters/TOTFR_NARRATIVE_VendimarMystery_v01.webp",
+    "12 Decorative/TOTFR_TITLE_CHV_v01.png"
+  ],
+  "policy": {
+    "PLAYER_SAFE": ["PUBLIC_COMMIT_PINNED", "NOTION_NATIVE"],
+    "DM_HOLD": ["PRIVATE_DM", "NOTION_PRIVATE_NATIVE"],
+    "mutable_branch_url_allowed_as_desired_state": false,
+    "public_dm_source_allowed": false
+  }
+}
