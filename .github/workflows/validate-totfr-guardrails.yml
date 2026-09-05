@@ -1,5 +1,6 @@
 name: Validate TOTFR Guardrails
 
+# AGENTS.md and the full pinned control plane are mandatory inputs; every PR is validated.
 'on':
   push:
     branches: [development]
