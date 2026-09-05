@@ -24,6 +24,7 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 | `v01` overwritten | Art version rule | Source/version/path validation | WRITE FAILED / STOP |
 | Rejected art committed | Art handoff gate | Design-state/source lineage check | NOT COMPLETE |
 | GitHub text truncation | Upload byte envelope + sentinel | Re-fetch sections/tail sentinel | WRITE FAILED |
+| Guardrail/matrix structural drift | Machine validator + GitHub Action gate | Validator exit + workflow conclusion | BLOCKED / STOP |
 | Binary treated as text | Upload + App GitHub rules | Binary path/size/open QA | WRITE FAILED |
 | Staging counted as production | Upload rules | Live final-path audit | NOT COMPLETE |
 | Wrong GitHub create/update path | App live-path read | Re-fetch exact path/blob | WRITE FAILED |
