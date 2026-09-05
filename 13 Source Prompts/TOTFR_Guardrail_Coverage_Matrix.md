@@ -7,6 +7,7 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 |---|---|---|---|
 | Stale/contradictory manifest | Main evidence hierarchy/startup | Live GitHub/binary/matrix reconciliation | NEEDS REVIEW / STOP |
 | Missing matrix index/shard/row | Art matrix-resolution gate | Index → shard → exact row | STOP |
+| Matrix row authored from guess/stale destination | Index row-authoring gate + live source/Notion reads | Row re-fetch + later live revalidation | STOP / NEEDS REVIEW |
 | Duplicate active matrix row | Shard uniqueness rule | Cross-shard asset ID/path check | STOP |
 | Surface Matrix grows near text limit | Sharded index; <=8 KB shard target | UTF-8 byte check before write | SPLIT REQUIRED / STOP |
 | Wrong subject/canon | Art Audit A | Visual/semantic + cross-surface QA | DESIGN REJECTED |
