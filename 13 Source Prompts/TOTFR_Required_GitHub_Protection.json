@@ -1,10 +1,14 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "integration_branch": "~DEFAULT_BRANCH",
   "required_rule_types": ["deletion", "non_fast_forward", "pull_request", "required_status_checks"],
   "required_status_contexts": ["validate", "control-plane-integrity"],
+  "require_status_source_binding": true,
+  "required_status_source_instruction": "SELECT_GITHUB_ACTIONS_EXPECTED_SOURCE_FOR_EACH_REQUIRED_CHECK",
   "strict_required_status_checks_policy": true,
   "allow_always_bypass": false,
+  "required_approving_review_count": 0,
+  "reason_for_zero_required_reviews": "SOLE_OWNER_BOOTSTRAP_AVOIDS_SELF_REVIEW_DEADLOCK;TIER2_AGENT_EXECUTION_REMAINS_BLOCKED_BY_TRUST_BOUNDARY",
   "working_branches_may_accept_fast_forward_writes": true,
   "verification_doctrine": "VERIFY_THEN_TRUST_EXACT_STATE"
 }
