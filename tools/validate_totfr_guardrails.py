@@ -48,7 +48,7 @@ workflow=ROOT/".github/workflows/validate-totfr-guardrails.yml"
 if not workflow.exists(): fail("missing guardrail validation workflow")
 else:
     w=workflow.read_text(encoding="utf-8")
-    for x in ["python tools/validate_totfr_guardrails.py","python tools/test_totfr_guardrails.py"]:
+    for x in ["actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1","actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97","permissions:","contents: read","persist-credentials: false","timeout-minutes: 5","python tools/validate_totfr_guardrails.py","python tools/test_totfr_guardrails.py"]:
         if x not in w: fail(f"guardrail workflow missing required control: {x}")
 
 schema_path=SRC/"TOTFR_Surface_Matrix.csv"; schema=None
@@ -138,4 +138,4 @@ if errors:
     sys.exit(1)
 print("TOTFR GUARDRAIL VALIDATION PASSED")
 print(f"controlled_files={len(CONTROLLED)} matrix_shards={len(list(shard_dir.glob('*.csv'))) if shard_dir.exists() else 0} active_rows={len(seen_ids)}")
-print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED-V6")
+print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED-V7")
