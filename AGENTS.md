@@ -1,6 +1,6 @@
 # TOTFR Agent Operating Contract
 
-Status: MANDATORY AGENT CONTROL — 2026-09-04-V3
+Status: MANDATORY AGENT CONTROL — 2026-09-04-V4
 
 Agents fail closed. Speed never outranks evidence, canon, spoiler safety, user content, concurrency or recoverability.
 
@@ -40,7 +40,7 @@ No self-certification. Reviewers re-fetch evidence; author's summary is insuffic
 
 Every mutating active run needs independent structural reviewer PASS. Tier 2 (schema/view/root navigation/player-DM/publication/control plane) also needs adversarial PASS + machine validation and, where available, one passing reviewer from a different runtime class/human. User-visible completion needs visual reviewer.
 
-Author, executor and reviewers use distinct instance IDs.
+Author, executor and reviewers use distinct instance IDs, but self-declared IDs are not a security identity unless the Trust Boundary says identity enforcement is configured.
 
 ## 6. Evidence domains cannot substitute
 Independent gates:
@@ -68,7 +68,7 @@ Operational ceiling <=2 Notion requests/second average across the run; one write
 
 Never probe capability with mutation. New first-block/page-content gallery preview hacks are banned. Prefer dedicated media properties. Schema/view normalization is Tier 2. Avoid `replace_content` for art. API success never satisfies VISUAL.
 
-Signed Notion/S3 URLs are ephemeral and may contain temporary credentials; never persist query strings/tokens. Stable IDs/canonical refs only.
+Signed Notion/S3 URLs are ephemeral and may contain temporary credentials. Never persist query strings/tokens. Persist stable IDs/canonical refs only.
 
 ## 9. Publication boundary
 Public distribution may contain PLAYER-SAFE assets only. DM HOLD/future/spoiler assets require private source boundary; a public path is disclosure. External production URLs are commit-pinned, never mutable branch URLs. Never overwrite an approved art version in place.
@@ -81,4 +81,4 @@ Reset requires fresh startup, pinned current controls/required CI, changed evide
 ## 11. Completion
 No agent may claim COMPLETE from counts, API success, ledger state, upload success, state.json, or green CI alone. Completion requires all evidence domains, exact final evidence-set hashes, no UNKNOWN/CONCURRENT_CHANGE/ROLLBACK_CONFLICT/open circuit/residue, and independent adversarial disproof.
 
-END-OF-FILE SENTINEL: TOTFR-AGENT-OPERATING-CONTRACT-2026-09-04-V3
+END-OF-FILE SENTINEL: TOTFR-AGENT-OPERATING-CONTRACT-2026-09-04-V4
