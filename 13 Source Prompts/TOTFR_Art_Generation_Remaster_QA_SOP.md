@@ -1,6 +1,6 @@
 # TOTFR Art Generation & Remaster QA SOP
 
-Status: MANDATORY ART SOP — 2026-09-04-HARDENED-V3
+Status: MANDATORY ART SOP — 2026-09-04-HARDENED-V4
 Scope: every new, regenerated, edited, recropped, recomposed, text-removed, upscaled, or derived TOTFR visual before GitHub storage or Notion deployment.
 
 ## 1. Fail closed
@@ -12,7 +12,7 @@ Only DESIGN APPROVED may enter production storage/deployment.
 
 ## 2. Authority and exact inputs
 Before art work:
-1. Resolve immutable `control_ref` from the approved run/control PR. Load Main, App/Tool, Art, Upload Safety, Surface Matrix schema/index/shard, Agent Trust Boundary, and Evidence Policy from that exact commit. Never substitute mutable `development`, memory, chat, or another branch.
+1. Resolve immutable `control_ref` from the approved run/control PR. Load Main, App/Tool, Art, Upload Safety, `13 Source Prompts/TOTFR_Surface_Matrix.csv`, `13 Source Prompts/TOTFR_Surface_Matrix_Index.md`, the exact indexed shard, Agent Trust Boundary, and Evidence Policy from that exact commit. Never substitute mutable `development`, memory, chat, or another branch.
 2. Resolve the exact source asset from its explicitly approved source commit/path/blob. Control ref and source commit may differ; neither may be silently replaced by current branch state.
 3. Resolve source category → indexed bounded shard and require exactly one active asset row. Missing/duplicate/stale row, schema mismatch, oversized shard, or missing EOF = STOP.
 4. Fetch exact live Notion destination/view/property state only for destination-fit evidence. Live Notion state is not control authority.
@@ -97,4 +97,4 @@ Before GitHub storage require DESIGN APPROVED, exact new path/version, materiali
 
 Before art completion ask: what was not inspected; what can crop badly; any gibberish/invented canon; does small/card view work; does art duplicate native title; is another derivative required; did reviewed bytes equal handed-off bytes; could the user immediately identify a defect; is matrix row unique/current/bounded? Any material uncertainty = NOT COMPLETE.
 
-END-OF-FILE SENTINEL: TOTFR-ART-GENERATION-REMASTER-QA-2026-09-04-HARDENED-V3
+END-OF-FILE SENTINEL: TOTFR-ART-GENERATION-REMASTER-QA-2026-09-04-HARDENED-V4
