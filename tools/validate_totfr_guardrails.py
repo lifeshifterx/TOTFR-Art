@@ -63,7 +63,7 @@ def require_text(path,required):
 require_text(SRC/"TOTFR_Art_Notion_Deployment_Guardrails.md",["TOTFR_App_Tool_Execution_Safety_SOP.md","TOTFR_Art_Generation_Remaster_QA_SOP.md","TOTFR_GitHub_Upload_Safety_Plan.md","CLEAN BASELINE VERIFIED","VISUALLY APPROVED"])
 require_text(SRC/"TOTFR_App_Tool_Execution_Safety_SOP.md",["A write/update endpoint must never be used as a substitute for a read/inspection endpoint.","notion-create-attachment","PROVEN PERSISTED"])
 require_text(SRC/"TOTFR_Art_Generation_Remaster_QA_SOP.md",["TOTFR_Surface_Matrix.csv","TOTFR_Surface_Matrix_Index.md","DESIGN APPROVED","Editing a specific existing image requires usable source pixels"])
-require_text(SRC/"TOTFR_GitHub_Upload_Safety_Plan.md",["tools/validate_totfr_guardrails.py","Validate TOTFR Guardrails"])
+require_text(SRC/"TOTFR_GitHub_Upload_Safety_Plan.md",["tools/validate_totfr_guardrails.py","tools/test_totfr_guardrails.py","Validate TOTFR Guardrails","CURRENT-HEAD CI FALLBACK"])
 require_text(SRC/"TOTFR_Surface_Matrix_Index.md",["Creating or updating an audited row","exactly one active row","<=8,000 UTF-8 bytes"])
 
 workflow=ROOT/".github"/"workflows"/"validate-totfr-guardrails.yml"
@@ -124,4 +124,4 @@ if errors:
     sys.exit(1)
 print("TOTFR GUARDRAIL VALIDATION PASSED")
 print(f"controlled_files={len(CONTROLLED)} matrix_shards={len(list(shard_dir.glob('*.csv'))) if shard_dir.exists() else 0} active_rows={len(seen_ids)}")
-print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED-V3")
+print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED-V4")
