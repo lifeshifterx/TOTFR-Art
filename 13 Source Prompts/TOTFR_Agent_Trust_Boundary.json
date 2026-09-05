@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "agent_identity_enforcement_state": "UNCONFIGURED",
+  "self_declared_instance_ids_are_security_identity": false,
+  "tier2_requires_human_owner_pass_when_identity_unconfigured": true,
+  "required_human_review_role": "human_owner",
+  "required_human_runtime_class": "human",
+  "future_enforcement_requirements": [
+    "distinct authenticated execution principals or enforceable per-agent tool credentials",
+    "runtime-enforced role tool allowlists",
+    "audit trail that cannot be authored by the reviewed agent",
+    "review evidence bound to exact immutable run and plan hashes"
+  ]
+}
