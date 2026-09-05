@@ -1,6 +1,6 @@
 # TOTFR Guardrail Coverage Matrix
 
-Status: AUDIT EVIDENCE — 2026-09-04-HARDENED-V4
+Status: AUDIT EVIDENCE — 2026-09-04-HARDENED-V5
 Purpose: map known failure classes to prevention, detection, and fail-closed state. Evidence only; mandatory SOPs remain authoritative.
 
 | Failure class | Preventive control | Detection/validation | Required fail state |
@@ -38,6 +38,7 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 | Binary treated as text | Upload + App GitHub rules | Binary path/size/open QA | WRITE FAILED |
 | Staging counted as production | Upload rules | Live final-path audit | NOT COMPLETE |
 | Wrong GitHub create/update path | App live-path read | Re-fetch exact path/blob | WRITE FAILED |
+| Library folder list omits recent persisted file | App EXACT LIBRARY VERIFICATION | Exact title/path search or direct read using returned ID | UNKNOWN until exact lookup; STOP if unresolved |
 | Wrong Notion page/view/property | App read-first + Audit B | Exact entity/structure re-fetch | STOP / rollback |
 | Write endpoint used for inspection | App capability rule | Operation-class check | STOP |
 | Page cover mistaken for gallery preview | App Notion rule | Live view/preview fetch | STRUCTURAL FAILURE |
@@ -53,7 +54,7 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 | Open circuit bypassed by retry | Circuit-reset prerequisites | Current row/checkpoint + fresh audits | STOP |
 | Session/context limit mid-action | Main batch/resume | Last-target re-fetch/checkpoint | UNKNOWN / PAUSED |
 | Rate/tool error retried blindly | App failure rule | Error log + true read | STOP |
-| Checkpoint write fails | Main session gate | Persistence verification | CHECKPOINT FAILURE / STOP |
+| Checkpoint write fails | Main session gate | Exact Library persistence verification | CHECKPOINT FAILURE / STOP |
 | Memory used as resume truth | Main/App resume rules | Reload SOP/live state/checkpoint | STOP |
 | Ledger says complete but UI fails | Evidence precedence | User/browser evidence | NOT COMPLETE |
 | 115 present treated as readiness | README/Main/legacy deprecation | DESIGN APPROVED evidence | NOT COMPLETE |
@@ -69,14 +70,15 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 7. Failure invalidates downstream inherited status for the affected item/class.
 8. Open circuit blocks mutation/state advancement until governed reset.
 9. Unprotected `development` requires PR-first control-plane changes plus exact-head CI before downstream use.
+10. Persistent Library writes require exact lookup/read proof; broad folder listing alone never establishes absence or success.
 
 ## Three-audit proof
 **Audit 1 — Coverage:** incident failures and newly discovered sustainability failures have prevention + detection + fail state.
 
-**Audit 2 — Contradiction:** Main orchestrates; App governs tool/circuit behavior; Art governs design; Upload Safety governs PR/transport/current-head authorization; Matrix schema/index/shards govern evidence-bound per-asset state. Stricter rule wins.
+**Audit 2 — Contradiction:** Main orchestrates; App governs tool/circuit/persistence behavior; Art governs design; Upload Safety governs PR/transport/current-head authorization; Matrix schema/index/shards govern evidence-bound per-asset state. Stricter rule wins.
 
-**Audit 3 — Adversarial:** assume a status, tool, CI result, or prior approval lies. Binary SHA checks, state prerequisites, rollback/evidence refs, mutation tests, PR-head CI, exact-head CI, visual QA, residue sweeps, and circuit breakers independently block false completion or uncontrolled retry.
+**Audit 3 — Adversarial:** assume a status, tool, listing, CI result, or prior approval lies. Exact Library lookup, binary SHA checks, state prerequisites, rollback/evidence refs, mutation tests, PR-head CI, exact-head CI, visual QA, residue sweeps, and circuit breakers independently block false completion or uncontrolled retry.
 
 External services can fail, permissions can change, and rendering can differ. The standard targets fail-closed, bounded recovery and independently checkable evidence, not impossible guarantees about external systems.
 
-END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-COVERAGE-MATRIX-2026-09-04-HARDENED-V4
+END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-COVERAGE-MATRIX-2026-09-04-HARDENED-V5
