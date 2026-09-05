@@ -12,7 +12,7 @@ Only DESIGN APPROVED may enter production storage/deployment.
 ## 2. Startup / capability gate
 Before art work:
 1. Fetch the current main guardrail SOP and this SOP from GitHub `development`.
-2. Load the Surface Matrix/remaster row for the asset.
+2. Load the asset row from canonical `13 Source Prompts/TOTFR_Surface_Matrix.csv`; no row = STOP.
 3. Classify operation: KEEP, RECROP, REMOVE TEXT, RECOMPOSE, REGENERATE, NEW, DM HOLD.
 4. Identify exact source binary/version and destination surface.
 5. Confirm the current environment can faithfully perform the operation.
