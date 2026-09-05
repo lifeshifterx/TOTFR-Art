@@ -209,16 +209,19 @@ At the first unexplained failure, mismatch, broken image, unexpected crop, lefto
 
 Do not respond to a failed write by trying unrelated mutation approaches repeatedly.
 
-## 11A. Session/usage-limit gate
-`13 Source Prompts/TOTFR_Session_Usage_Resumability_Guardrails.md` is a mandatory companion SOP and must be loaded with this file for every long, scheduled, or multi-batch run.
-
-Core rules:
-- Never invent remaining context, message, connector, API, upload, or rate-limit capacity; unknown capacity is treated as UNKNOWN.
-- Never start a mutation unless the same atomic run can also perform required validation and persist a resume checkpoint.
-- Do not queue unvalidated writes. Validate each material write before the next independent mutation.
-- At any explicit rate/quota/session/context/tool limit, stop new mutations, verify the current item if possible, persist the exact last fully validated state + next action, and report PAUSED/BLOCKED rather than COMPLETE.
-- Resume only after reloading both SOPs, live GitHub/Notion state, and the checkpoint; revalidate the last completed boundary before continuing.
-- Session/usage limits never relax Audits A/B/C, cleanup, structural verification, visual QA, or the Section 13 completion gate. Reduce batch size instead.
+## 11A. Session/usage-limit/resume gate
+- Never invent remaining context, message, connector, API, upload, or rate-limit capacity. Use exposed limit/status evidence; otherwise capacity is UNKNOWN.
+- UNKNOWN capacity requires smaller atomic batches, never weaker safeguards.
+- Never start a mutation unless the same atomic run can reasonably complete Audits A/B/C, the mutation, required validations, and checkpoint persistence. Do not queue unvalidated writes.
+- Persist a resume checkpoint at each batch boundary and after each fully validated material item when practical: SOP/Git refs, surface/batch, last exact validated state, any written-but-unvalidated item, residue state, exact next unstarted action, and current error/limit. A checkpoint is not proof; resume must re-fetch live state.
+- If checkpoint persistence fails, STOP new mutations and report CHECKPOINT PERSISTENCE FAILURE with the last proven live state. Never reconstruct it later from memory.
+- A normal chat reply is not background continuation. Large work must be split before mutation. If context/session pressure appears, stop new mutations, finish validation of the current atomic item if possible, checkpoint, and report the exact resume point.
+- At any explicit rate/quota/tool/session limit: stop new mutations; do not hammer retries; re-fetch the last attempted target if possible and classify the write PROVEN PERSISTED, PROVEN ABSENT, or UNKNOWN; checkpoint; never mark COMPLETE.
+- Resume only after reloading this SOP, live GitHub/Notion state, and checkpoint; reconcile UNKNOWN items first and revalidate the last completed boundary.
+- Existing limits remain: Notion cleanup/deployment max 5 materially similar items; scheduled GitHub production uploads max 3. Lower/more-specific limits win. Do not invent numeric ChatGPT/session limits when not exposed.
+- Scheduled runs must use bounded audited batches, reload this SOP, end with a checkpoint, and pause a surface class after any failed/UNKNOWN item.
+- Before each batch ask: if the next tool call were the last available, would the project remain safe and resumable? If uncertain, reduce the batch, including to one.
+- Session/usage limits never relax cleanup, Audits A/B/C, structural verification, visual QA, or Section 13. A limit yields PAUSED AT VALIDATED CHECKPOINT / BLOCKED / NEEDS REVIEW, never COMPLETE.
 
 ## 12. Canon and spoiler guardrails
 Current campaign canon overrides old prompts/summaries. Artwork can itself spoil identities, transformations, villains, artifacts, locations, deaths, betrayals, encounters, or outcomes. Keep unrevealed items DM HOLD until explicitly released. Never publish future session dates or unrevealed events as completed history.
