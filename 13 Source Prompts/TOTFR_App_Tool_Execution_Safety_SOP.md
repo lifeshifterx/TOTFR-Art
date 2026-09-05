@@ -50,6 +50,7 @@ If any step cannot be completed, the item cannot advance beyond its last proven 
 - Do not infer board/gallery visibility from page-cover metadata.
 - Do not infer visual rendering from a stored URL or API success.
 - Prefer the destination's existing intended media property when present.
+- When using Notion-native file import, prefer `notion-create-attachment` only with a direct publicly reachable HTTPS source or valid signed URL that does not require cookies/headers or redirects; respect workspace file-size/time limits; attach the returned upload within its validity window; then re-fetch the final page/property. A temporary upload or source URL is never the final proof.
 - Schema/view changes require explicit audited necessity; image placement must not restructure campaign data for convenience.
 - Cleanup uses the zero-residue rules in the main SOP.
 - If the environment cannot render the user-facing Notion UI, status stops at STRUCTURALLY VERIFIED / VISUAL QA REQUIRED until browser/screenshot evidence exists.
