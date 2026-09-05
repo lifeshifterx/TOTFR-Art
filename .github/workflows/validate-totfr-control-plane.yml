@@ -1,0 +1,31 @@
+name: TOTFR Control Plane Integrity
+
+'on':
+  push:
+    branches: [development]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: totfr-control-plane-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  control-plane-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12'
+      - name: Validate control-plane self-protection
+        run: python tools/validate_totfr_meta_controls.py
+      - name: Verify live GitHub integration protection
+        run: python tools/validate_totfr_live_protection.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
