@@ -1,6 +1,6 @@
 # TOTFR Guardrail Coverage Matrix
 
-Status: AUDIT EVIDENCE — 2026-09-04-HARDENED-V3
+Status: AUDIT EVIDENCE — 2026-09-04-HARDENED-V4
 Purpose: map known failure classes to prevention, detection, and fail-closed state. Evidence only; mandatory SOPs remain authoritative.
 
 | Failure class | Preventive control | Detection/validation | Required fail state |
@@ -30,6 +30,7 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 | Binary treated as text | Upload + App GitHub rules | Binary path/size/open QA | WRITE FAILED |
 | Staging counted as production | Upload rules | Live final-path audit | NOT COMPLETE |
 | Wrong GitHub create/update path | App live-path read | Re-fetch exact path/blob | WRITE FAILED |
+| Library folder list omits recent persisted file | App EXACT LIBRARY VERIFICATION | Exact title/path search or direct read using returned ID | UNKNOWN until exact lookup; STOP if unresolved |
 | Wrong Notion page/view/property | App read-first + Audit B | Exact entity/structure re-fetch | STOP / rollback |
 | Write endpoint used for inspection | App capability rule | Operation-class check | STOP |
 | Page cover mistaken for gallery preview | App Notion rule | Live view/preview fetch | STRUCTURAL FAILURE |
@@ -43,7 +44,7 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 | Pilot failure ignored | Main pilot gate | Pilot-state check | SCALE-OUT BLOCKED |
 | Session/context limit mid-action | Main batch/resume | Last-target re-fetch/checkpoint | UNKNOWN / PAUSED |
 | Rate/tool error retried blindly | App failure rule | Error log + true read | STOP |
-| Checkpoint write fails | Main session gate | Persistence verification | CHECKPOINT FAILURE / STOP |
+| Checkpoint write fails | Main session gate | Exact Library persistence verification | CHECKPOINT FAILURE / STOP |
 | Memory used as resume truth | Main/App resume rules | Reload SOP/live state/checkpoint | STOP |
 | Ledger says complete but UI fails | Evidence precedence | User/browser evidence | NOT COMPLETE |
 | 115 present treated as readiness | README/Main/legacy manifest deprecation | DESIGN APPROVED evidence | NOT COMPLETE |
@@ -58,14 +59,15 @@ Purpose: map known failure classes to prevention, detection, and fail-closed sta
 6. Visual success never bypasses final disproof audits.
 7. Failure at any stage invalidates downstream inherited status for the affected item/class.
 8. If branch protection is absent, each new `development` SHA requires its own completed-successful guardrail workflow before dependent work.
+9. Persistent Library writes require exact lookup/read proof; broad folder listing alone never establishes absence or success.
 
 ## Three-audit proof
 **Audit 1 — Coverage:** known failures from the incident history have prevention + detection + fail state above.
 
-**Audit 2 — Contradiction:** Main orchestrates; App governs tool use; Art governs design/matrix resolution; Upload Safety governs GitHub transport/current-head authorization; Surface Matrix schema/index/shards govern per-asset surface facts. A module may be stricter than its parent, never weaker.
+**Audit 2 — Contradiction:** Main orchestrates; App governs tool use and persistent verification; Art governs design/matrix resolution; Upload Safety governs GitHub transport/current-head authorization; Surface Matrix schema/index/shards govern per-asset surface facts. A module may be stricter than its parent, never weaker.
 
-**Audit 3 — Adversarial:** assume one control fails. Downstream gates still block false completion: rejected art fails handoff; bad GitHub writes fail re-fetch; stale CI cannot authorize a later SHA; wrong Notion structure fails structural QA; invisible/broken results fail visual QA; residue fails sweeps; unknown session/tool state cannot become COMPLETE; oversized matrix shards must split before write.
+**Audit 3 — Adversarial:** assume one control fails. Downstream gates still block false completion: rejected art fails handoff; bad GitHub writes fail re-fetch; stale CI cannot authorize a later SHA; ambiguous Library listing cannot override exact lookup; wrong Notion structure fails structural QA; invisible/broken results fail visual QA; residue fails sweeps; unknown session/tool state cannot become COMPLETE; oversized matrix shards must split before write.
 
 External services can still fail, permissions can change, and rendering can differ. The standard guarantees fail-closed behavior and evidence-backed recovery, not guaranteed external service success.
 
-END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-COVERAGE-MATRIX-2026-09-04-HARDENED-V3
+END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-COVERAGE-MATRIX-2026-09-04-HARDENED-V4
