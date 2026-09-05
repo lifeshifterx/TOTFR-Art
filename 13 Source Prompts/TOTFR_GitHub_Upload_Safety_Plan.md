@@ -1,78 +1,94 @@
 # GitHub Upload Safety Plan
 
 Status: MANDATORY TRANSPORT SOP
-Version: 2026-09-04-HARDENED-V5
+Version: 2026-09-04-HARDENED-V7
+
+## 0. VERIFY THEN TRUST
+Never trust a remembered branch, SHA, prior green run, protection badge, upload response, or previous fetch. Read the exact target/ref/state immediately before the dependent action. Later changes invalidate dependent trust.
 
 ## 1. Non-negotiable text-write envelope
-Observed behavior: connector text writes have previously truncated near ~20 KB. That is a failure observation, not an operating threshold.
+Observed behavior: connector text writes previously truncated near ~20 KB. That is a failure observation, never an operating target.
 
 For project `create_file`/`update_file` text:
-- Prepare the final document before writing.
-- Measure UTF-8 bytes, not characters, whenever a local/prepared source is available.
-- Main project SOPs target <= 8,000 UTF-8 bytes.
-- Any prepared direct text payload > 10,000 UTF-8 bytes = STOP; reduce or split before connector use.
-- Never probe the limit with a live write.
-- Do not manually expand a prepared document during the connector call.
-- Every controlled SOP/manifest must end with a unique `END-OF-FILE SENTINEL`.
-- After one write, re-fetch the exact target-branch file and verify returned SHA, required headings, and final sentinel.
-- Missing sentinel, truncated/malformed tail, ambiguous fetch, or missing sections = WRITE FAILED. Stop dependent work.
-- Never increase limits because a larger write succeeded before.
-- Before every write, fetch the exact path on the exact target branch/ref. Never reuse a blob SHA obtained from another branch/ref.
+- prepare final document before writing;
+- measure UTF-8 bytes when a prepared source exists;
+- main SOP target <=8,000 bytes;
+- prepared direct text payload >10,000 bytes = STOP/split;
+- never probe the live limit;
+- every controlled SOP/manifest ends with unique EOF sentinel;
+- after one write, re-fetch exact target-branch file and verify SHA, required sections and tail sentinel;
+- missing/truncated/ambiguous result = WRITE FAILED / STOP;
+- never raise thresholds because a larger historical write succeeded;
+- fetch exact path on exact target branch immediately before every update; a SHA from another branch/ref is never reusable.
 
-If a document needs more detail, split it into small required modules. Missing required module = STOP.
+## 2. Binary uploads / materialized art
+- Never send image binaries as UTF-8 text.
+- Only DESIGN APPROVED materialized binary may enter production transport.
+- Reviewed binary hash/dimensions/version must match uploaded bytes; drift invalidates approval.
+- Prefer approved binary/blob transport. Base64 staging chunks <=8,000 characters/bytes each.
+- Verify decoded final path, size and hash where available.
+- Staging pieces/ZIPs never count as production assets.
 
-## 2. Binary uploads
-- Never send image binaries as inline UTF-8 through `create_file`/`update_file`.
-- Prefer approved binary/blob transport.
-- Base64 staging chunks: <= 8,000 characters and <= 8,000 UTF-8 bytes each.
-- Verify decoded final binary path and size.
-- Never count staging pieces as production assets.
+## 3. Protected integration model
+`development` is integration/merge only, not an agent workspace.
 
-## 3. Recurring uploader limits
-1. Max 3 production files per scheduled run.
-2. Fetch `development` before upload; skip already-valid final files.
-3. Try approved binary path once.
-4. If it fails, do not hammer retries; staged fallback only after preflight.
-5. Max 12 staging chunk writes per run.
-6. Verify final path/size before ledger update.
-7. Stop transport scheduling only when the governed target's authoritative audit says Missing: 0; inventory completion never proves design/deployment completion.
+Before governed GitHub production/control action, live CI must prove an active default-branch ruleset satisfies `TOTFR_Required_GitHub_Protection.json`: PR requirement, strict/current-head checks, required contexts `validate` + `control-plane-integrity`, deletion/non-fast-forward protection, and no unconditional integration bypass.
 
-## 4. Guardrail validator gate
-Changes to README authority, mandatory SOPs, Surface Matrix schema/index/shards, Art Specs, validator, mutation tests, or workflow require:
-1. pre-write byte/sentinel checks;
-2. one write + exact target-branch re-fetch;
-3. `tools/validate_totfr_guardrails.py` pass;
-4. `tools/test_totfr_guardrails.py` prove known bad states are rejected;
-5. `Validate TOTFR Guardrails` GitHub Action success for the exact resulting head.
+A GitHub `protected:true` label alone is insufficient. Missing/failed/uninspectable protection = STOP. **CURRENT-HEAD CI FALLBACK is RETIRED AND PROHIBITED**; inadequate live protection cannot be replaced by a successful workflow run.
 
-Failed/pending/unknown validation blocks dependent art/remaster/deployment. Commit success is not validation.
+## 4. Working branches / uploader
+Control work uses `guardrails/*` or `agents/*`. Art uses bounded `art-run/<run_id>` working branches created from exact current `development`.
+
+For each batch:
+1. verify live protection;
+2. fetch exact current integration SHA;
+3. create/reuse only approved working branch bound to that base/run;
+4. max 3 production files; reduce to one for new/failing path;
+5. fetch exact working-branch target; skip only when exact approved binary matches;
+6. attempt approved binary path once; no retry storm;
+7. staged fallback only after preflight; max 12 staging chunk writes/run;
+8. re-fetch working-branch final path and verify path/size/hash;
+9. PR to `development`; no agent direct integration write;
+10. require `validate` + `control-plane-integrity` on exact PR head;
+11. adversarially review diff/provenance;
+12. after merge fetch exact new integration head and require push checks before downstream consumption.
+
+Inventory Missing: 0 never proves design/deployment completion.
 
 ## 5. PR-first control plane
-Because `development` is not currently branch-protected, control-plane changes must use a dedicated `guardrails/*` branch and pull request.
+README authority, AGENTS, mandatory SOP/policies, validators/tests/workflows, Surface Matrix schema/index/routing and Deployment Run formats are control-plane.
 
-Control-plane includes README authority, mandatory SOPs, validator/tests/workflow, Surface Matrix schema/index, and structural routing rules.
-- Direct control-plane writes to `development` are prohibited unless the user explicitly authorizes an emergency exception after Audits A/B/C and rollback planning.
-- Fetch the exact branch-local path/SHA immediately before each write.
-- Open a PR to `development`; PR-head validator and mutation tests must pass.
-- **PR FRESHNESS GATE:** before review/merge, compare the PR head against the current `development`. If the branch is behind, or the base advanced in any overlapping controlled file, STOP. Reconcile every upstream controlled-file delta, make the branch contain current `development` history, then require a new PR-head validation run. Green CI from the stale head is invalid.
-- Review the full PR diff adversarially before merge. Once independent reviewer agents are available, at least one reviewer agent that did not author the change must approve the evidence/controls; authoring agents may not self-certify.
-- Merge only the reviewed, green head SHA. After merge, require a new exact-`development`-head validation run; PR success cannot be inherited after merge.
-- A later control-plane commit invalidates the prior authorization.
+- Use isolated working branch + PR.
+- Fetch exact branch-local path/SHA before every write.
+- **PR FRESHNESS GATE:** if behind or integration base changed in overlapping controlled files, STOP, reconcile all deltas, rerun checks. Old green CI is invalid.
+- Required checks: `validate` and `control-plane-integrity` on exact current PR head.
+- Full diff requires adversarial review. Self-declared agent IDs do not create security independence; Tier-2 agent execution remains blocked while identity enforcement is UNCONFIGURED.
+- Merge only exact reviewed head; later commit invalidates approval.
+- Post-merge exact-head checks must pass before downstream authority.
 
-Preferred repository hardening remains branch protection/rulesets requiring this check, restricting direct pushes/bypass, and requiring review. If connector permissions cannot administer rules, do not claim protection exists; report the exact manual hardening step.
+`tools/test_totfr_guardrails.py` and all other required hostile-test suites must run; removing a test gate is a control failure.
 
-## 6. CURRENT-HEAD CI FALLBACK when branch protection is absent
-Before dependent art generation/remaster, production upload, Matrix authoring, or Notion cleanup/deployment:
-1. Fetch exact current `development` head SHA.
-2. Fetch `Validate TOTFR Guardrails` run for that exact SHA.
-3. Require `status=completed` and `conclusion=success`.
-4. Confirm both clean-validator and mutation-test steps succeeded.
-5. Missing/in-progress/failed/cancelled/skipped/uninspectable/wrong-SHA run = STOP.
-6. Any later commit invalidates prior CI authorization; repeat.
+## 6. Workflow integrity
+Required workflows run on every PR, including art-only PRs; suppressive path filters are prohibited.
 
-This is PROCESS-ENFORCED until repository protection is actually enabled.
+Workflows use pinned action SHAs, read-only token permissions, no persisted checkout credentials, bounded timeout and stale-run cancellation. Independent `control-plane-integrity` validates main workflow and live protection; both contexts must be required by the integration ruleset.
 
-## 7. Session/resume
-Never start a write unless the run can reasonably perform write + re-fetch verification + checkpoint. At any rate/quota/session/tool limit, stop new writes, classify last attempt PROVEN PERSISTED / PROVEN ABSENT / UNKNOWN when possible, checkpoint, and never infer completion.
+## 7. Session / retry / circuit
+Never start a write unless same run can reasonably complete write + exact re-fetch + validation + checkpoint.
 
-END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED-V5
+At rate/quota/session/tool limit or transport error: stop new writes; classify last attempt PROVEN PERSISTED / PROVEN ABSENT / UNKNOWN; checkpoint exact branch/path/SHA/run; retry only after changed evidence-backed recovery; second same-path failure opens stage circuit; third material run failure triggers global mutation freeze.
+
+## 8. Transport completion disproof
+Before transport COMPLETE prove:
+- uploaded bytes equal DESIGN APPROVED materialized bytes;
+- exact final path/ref/hash verified;
+- staging residue not counted as production;
+- no DM/future asset entered public player-safe distribution;
+- exact PR head passed both checks;
+- live integration ruleset was sufficient at authorization;
+- merged integration head re-read and post-merge checks passed;
+- no stale branch/SHA, bypass, UNKNOWN or open circuit ignored.
+
+Any failed proof = NOT COMPLETE.
+
+END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED-V7

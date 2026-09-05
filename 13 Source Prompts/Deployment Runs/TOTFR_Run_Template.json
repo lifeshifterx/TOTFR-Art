@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "YYYYMMDD-HHMMSSZ-purpose-r1",
+  "control_ref": "0000000000000000000000000000000000000000",
+  "development_head_at_plan": "0000000000000000000000000000000000000000",
+  "notion_workspace_id": "51cbf16a-cf60-8155-8bcd-000352f7f776",
+  "inventory_state": "FROZEN",
+  "inventory_evidence_ref": "UNSET",
+  "plan_author_agent": "surface_canon_auditor",
+  "plan_author_instance_id": "UNSET",
+  "plan_author_runtime_class": "UNSET",
+  "notion_executor_agent": "notion_executor",
+  "notion_executor_instance_id": "UNSET",
+  "created_at": "1970-01-01T00:00:00Z",
+  "plan_shards": []
+}

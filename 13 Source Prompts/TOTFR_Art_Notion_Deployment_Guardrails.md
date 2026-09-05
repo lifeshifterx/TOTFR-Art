@@ -1,121 +1,118 @@
 # TOTFR Art & Notion Deployment Guardrails
 
-Status: MANDATORY PROJECT SOP — 2026-09-04-HARDENED-V2
+Status: MANDATORY PROJECT SOP — 2026-09-04-HARDENED-V6
 
-## 1. Fail closed / chain
-Never equate generation success, file existence, manifest state, API success, URL, or ledger status with completion.
+## 0. VERIFY THEN TRUST
+Treat remembered, cached, reported, previously green, or user-described state as UNTRUSTED until the current authoritative source is read. Trust applies only to the exact object/ref/SHA/config/result proven and only to that evidence domain.
 
-1. ART GENERATION/REMASTER → DESIGN APPROVED
-2. GITHUB STORAGE → SOURCE VERIFIED
-3. NOTION → CLEAN BASELINE VERIFIED → DEPLOYMENT WRITTEN → STRUCTURALLY VERIFIED → VISUALLY APPROVED
-4. PROJECT → COMPLETE only after disproof audits.
+Any branch/file/blob/workflow/ruleset/plan/Notion/binary change, session restart, failed validation, stale read, or contradiction invalidates dependent trust and requires re-verification.
 
-Later stages never excuse earlier failures.
+## 1. Fail closed
+Never equate generation, file existence, API/URL success, ledger status, agent review, or CI with completion.
 
-## 2. Mandatory startup
-Before action:
-1. Fetch this SOP from GitHub `development`.
-2. Fetch `13 Source Prompts/TOTFR_App_Tool_Execution_Safety_SOP.md`.
-3. Fetch `13 Source Prompts/TOTFR_Art_Generation_Remaster_QA_SOP.md`.
-4. Before GitHub writes, fetch `13 Source Prompts/TOTFR_GitHub_Upload_Safety_Plan.md`.
-5. Record SOP/module/Git refs.
-6. Art: load Surface Matrix + source. Notion: fetch live schema/view + residue.
-7. STOP if a module, source, Surface Matrix row, destination, or checkpoint is unknown.
+ART → DESIGN APPROVED → SOURCE VERIFIED → CLEAN BASELINE VERIFIED → DEPLOYMENT WRITTEN → STRUCTURALLY VERIFIED → VISUALLY APPROVED → adversarial disproof → COMPLETE.
 
-Memory/chats never replace live reads. Evidence: rendered destination > live GitHub > inspected binary > live Notion > current Surface Matrix/manifest > older docs.
+## 2. Startup / authority
+Before material work:
+1. Resolve immutable `control_ref`; load `AGENTS.md`, Main/App/Art/Upload/Transactional SOPs, Agent Role Matrix, Agent Trust Boundary, Runtime Evidence Policy, Required GitHub Protection, Publication Boundary, Deployment Run format, and Surface Matrix schema/index/shard from that exact commit.
+2. Never substitute mutable `development`, memory, chat, another branch, or later commit.
+3. Inspect source binary from its approved immutable source commit/path/blob.
+4. Inspect exact live Notion destination IDs/view/property/content state.
+5. Verify live GitHub integration ruleset and exact required CI state.
+6. Missing/ambiguous module, source, matrix row, destination, precondition, checkpoint, or protection evidence = STOP.
 
-## 3. Three audits BEFORE every material action
-Record all three.
+## 3. Independent evidence domains
+Prove separately:
+- SOURCE: immutable commit/path/blob + inspected materialized binary.
+- CANON/PRIVACY: current canon + PLAYER-SAFE/DM classification.
+- DESTINATION: live Notion IDs/schema/view/property/content.
+- CONCURRENCY: live fingerprint equals approved precondition.
+- STRUCTURE: post-write desired state and zero collateral/residue.
+- BINARY: delivered bytes equal approved bytes when retrievable.
+- VISUAL: authenticated rendered UI + durable privacy-correct artifact.
+- CONTROL: pinned controls + sufficient live GitHub protection + exact required CI.
 
-**A Source:** exact source/ref/version, binary properties, canon, destination/surface, player-safe/DM class, conflicts.
+One domain never proves another.
 
-**B Destination/Fit:** exact target; Notion page/database/view/card/preview/storage/image property/crop where relevant; title collision; schema impact; visual/link residue classified KEEP/REMOVE/REPLACE/UNKNOWN. UNKNOWN = STOP.
+## 4. Three audits before material action
+**A Source:** exact source/ref/blob, materialized binary, canon/privacy, conflicts, publication boundary.
 
-**C Adversarial:** try to prove failure: mapping, invisible success, crop/text defect, generated artifacts, broken source, spoiler, unintended change, stale residue, rollback, write-size/session/tool capacity. Unresolved risk = STOP/NEEDS REVIEW.
+**B Destination/Fit:** exact target, preview/storage/crop, collision, residue, precondition, rollback, idempotent desired state. UNKNOWN = STOP.
 
-All app/tool actions obey App/Tool SOP. Art obeys Art SOP. GitHub writes obey Upload Safety.
+**C Adversarial:** try to prove mapping, privacy, crop, source, transport, residue, rollback, concurrency, prompt-injection, secret, session/rate/tool, identity, stale-approval, or control-plane failure. Unresolved material risk = STOP/NEEDS REVIEW.
 
-## 4. Three validations AFTER material action
-1. STATE: re-fetch and prove persistence.
-2. STRUCTURE: correct asset/path/page/view/property; no unintended content/schema/relation change; no duplicate/stale/broken reference; no spoiler regression.
-3. VISUAL/SEMANTIC: inspect generated pixels or rendered Notion surface as applicable. API success/metadata is insufficient.
+Tool work obeys App SOP; art obeys Art QA; GitHub obeys Upload Safety; Notion obeys Transactional SOP.
 
-No required visual evidence = VISUAL QA REQUIRED.
+## 5. After-action validation
+1. Re-fetch exact target and prove persistence against plan/precondition.
+2. Prove correct asset/path/page/view/property; no content/schema/relation collateral; no stale/duplicate/broken residue; verify bytes when possible.
+3. Inspect actual pixels/rendered Notion surface and persist durable visual evidence.
 
-## 5. GitHub write gate
-All GitHub writes obey Upload Safety. For controlled text: stay within its hard byte envelope, never probe limits, require an end sentinel, and re-fetch after one write. Any truncation/missing section/sentinel/ambiguity = WRITE FAILED. Missing required split module = STOP.
+No required render evidence = VISUAL QA REQUIRED.
 
-## 6. Art gate
-No art enters production unless Art Generation SOP reports DESIGN APPROVED.
+## 6. Art / publication
+Only DESIGN APPROVED art enters production. Approval binds exact reviewed materialized binary hash/version. Never overwrite `v01`.
 
-The Art SOP governs source/canon/surface locks, capability, composition/text, rejection criteria, technical/visual/cross-surface QA, `v01` preservation, rejection handling, and derivatives. GitHub existence never upgrades art status.
+Public distribution is PLAYER-SAFE only. DM/future/spoiler assets and evidence require private storage. Public history exposure remains exposure after branch deletion; a clean public namespace or private conversion is required before that boundary is considered remediated.
 
-## 7. Notion cleanup/deployment
-Before replacement, sweep all TOTFR Notion for residue, including unlogged targets.
+Desired external URLs are immutable commit-pinned sources, never mutable branch URLs. GitHub existence never upgrades status.
 
-Per destination:
-1. Capture state.
-2. Inventory cover/icon, Files & media, inline images/embeds/bookmarks, previews, view cover settings, external links.
-3. Search old raw-GitHub URLs, filenames/versions, broken placeholders, duplicates, first-block workarounds.
-4. Classify KEEP/REMOVE/REPLACE/UNKNOWN.
-5. Clear REMOVE/REPLACE before new art. UNKNOWN = STOP.
-6. Re-fetch removals; re-scan storage/display locations.
-7. Visually prove no blank/broken/duplicate/stale image.
-8. CLEAN BASELINE VERIFIED requires state + structural + visual cleanup validation.
+## 7. Transactional Notion deployment
+Current workspace is CONTAMINATED/UNTRUSTED until a new governed run proves otherwise.
 
-Deploy only DESIGN APPROVED art by the audited surface mechanism. Prefer Files & media; no preview hacks when a dedicated property exists. Audit preview first. No art-only schema change without approval. Raw GitHub hotlinks are not default storage; external URLs require render validation. Never rewrite campaign content for art.
+No broad/free-form deployment. Use frozen inventory + desired-state diff + exact plan hashes + trust-compliant review + one Notion writer + per-target WAL/receipt/visual evidence.
 
-Zero unapproved residue required; preserve archival `v01` unless deletion authorized.
+Per mutation:
+PRECONDITION READ → LEASE → WAL → ONE WRITE → BOUNDED CONFIRMATION READS → STRUCTURAL/BINARY QA → RECEIPT → VISUAL GATE.
 
-## 8. Pilot first
-No broad redeployment until Homepage, Chapter I, Braakport, Abbigail, and Anchor Heart each pass art QA + cleanup + deployment + visual QA. Pilot failure blocks scale-out.
+Live change = CONCURRENT_CHANGE / STOP. Rollback only when live state still equals this run's post-state; otherwise ROLLBACK_CONFLICT / STOP.
 
-## 9. Batch/session/resume
-- Art generation/remaster: max 3 related assets; one for new/failing classes.
-- Notion cleanup/deployment: max 5 similar; one when uncertain.
-- Scheduled GitHub production uploads: max 3.
-- Lower tool limits win.
-- Never invent remaining context/session/connector/API/rate capacity.
-- Start mutation only if same run can finish audits, action, validations, checkpoint.
-- Checkpoint: SOP/module/Git refs, last validated state, unvalidated item, residue, next action, error/limit.
-- Checkpoint failure = STOP; never reconstruct from memory.
-- At limit: stop actions/retries, re-fetch last target if possible, classify PROVEN PERSISTED / PROVEN ABSENT / UNKNOWN, checkpoint; never COMPLETE.
-- Resume after reloading required SOPs + live state + source/checkpoint; reconcile UNKNOWN first.
-- Before batch ask: if next call were last, is project safe/resumable? If uncertain, shrink batch.
+Remove old covers/icons/media/links/preview hacks before replacement. Re-fetch, rescan and visually prove zero unapproved legacy residue before CLEAN BASELINE VERIFIED. Never hide residue behind new art.
 
-Limits never relax QA.
+Avoid full-page replacement. New first-block/page-content gallery hacks are prohibited. Missing stable gallery media property = SCHEMA_MIGRATION_REQUIRED (Tier 2).
 
-## 10. Canon/spoilers
-Current canon overrides old material. Artwork can itself spoil unrevealed identities, events, artifacts, and outcomes. Unrevealed assets remain DM HOLD; never publish future events as history.
+Never persist signed Notion/S3 query strings or temporary credentials.
 
-## 11. Completion disproof
-Before COMPLETE:
-1. ART: every deployed asset DESIGN APPROVED; no rejected/unvalidated art.
-2. GITHUB: expected current source/version on `development`; staging/chunks/obsolete files not final.
-3. DESTINATION: no old covers/icons/media/content/previews/broken/duplicate residue.
-4. REFERENCE: old URL/filename matches intentional/approved.
-5. VISUAL: high-risk surfaces checked for blank/broken/crop/title/mismatch/readability/artifacts.
-6. ADVERSARIAL: challenge counts, manifests, checkpoints, prior success against live evidence.
+## 8. Canaries / trust
+Before scale-out prove one canary per planned Tier-1 mechanism: pinned cover/icon, native file property, gallery media property, residue removal.
 
-Residue, rejected/unvalidated art, UNKNOWN, or material uncertainty = NOT COMPLETE. User-visible failure overrides ledgers.
+Tier-2 means schema/view/root navigation/player-DM/publication/control-plane. While Agent Trust Boundary identity enforcement is UNCONFIGURED, Tier-2 agent execution is prohibited. Extra agent labels or repository attestations do not override it.
 
-## 12. Existing failed state
-Prior completion claims are invalid. Existing art/links/media/fields/preview workarounds and old design assumptions remain untrusted until re-audited.
+Exactly one `notion_executor` mutates Notion. Parallelize inspection/review, not mutation. Shared run budget <=2 Notion requests/second average; one write in flight.
 
-## 13. Failure recovery/manual fallback
-On failure:
-1. Never report completion; freeze affected stage/class.
-2. Record exact operation/result/destination/asset/last good state.
-3. Re-run Audits A/B/C + applicable module checks.
-4. Classify failure: design, generation, source pixels, residue, storage/link, view, schema/property, connector/tool, permissions, crop/layout, write-size, session/limit.
-5. Produce one evidence-backed recovery path and audit before execution.
-6. Repeat validations; failed items never inherit approval.
+Circuit: first material failure stops/re-audits item; second same-path failure/stage anomaly opens circuit; third material run failure freezes all mutation.
 
-If tools cannot safely act, give exact manual/external steps: source/spec, asset/path, page/record, field/block/view, old URL patterns, clean state, replacement, visual checks. Preserve campaign content/structure; otherwise report exact blocker.
+## 9. GitHub integration
+`development` is merge/integration only for agents. Governed control/art changes use bounded working branches + PRs.
 
-## 14. Status/control
-Statuses include: INPUT/SURFACE/PLAN LOCKED, GENERATED/UNVALIDATED, DESIGN REJECTED/APPROVED, SOURCE VERIFIED, CLEANUP REQUIRED, CLEAN BASELINE VERIFIED, DEPLOYMENT WRITTEN, STRUCTURALLY VERIFIED, VISUAL QA REQUIRED, VISUALLY APPROVED, DM HOLD, NEEDS REVIEW, CANON CONFLICT, BROKEN/MISSING, NO DESTINATION, PAUSED AT VALIDATED CHECKPOINT, BLOCKED, COMPLETE.
+A `protected:true` label is insufficient. Live protection must satisfy `TOTFR_Required_GitHub_Protection.json`: PR gate, strict current-head `validate` + `control-plane-integrity`, deletion/non-fast-forward protection, and no unconditional integration bypass.
 
-`Verified` alone prohibited. Deviation requires named rule/reason, Audits A/B/C, explicit user approval.
+Insufficient protection = STOP; no CI-only fallback.
 
-END-OF-FILE SENTINEL: TOTFR-ART-NOTION-GUARDRAILS-2026-09-04-HARDENED-V2
+## 10. Completion disproof
+Before COMPLETE prove:
+1. every governed target inventoried/dispositioned;
+2. every deployed asset DESIGN APPROVED and current-byte bound;
+3. no mutable URL, public DM source/evidence, or unresolved spoiler exposure;
+4. no old cover/icon/media/link/preview-hack/broken/duplicate residue;
+5. every receipt matches current destination + immutable plan, including required confirmation reads;
+6. required rendered checks + durable artifacts pass;
+7. no signed token/secret persisted;
+8. no fake identity, self/stale review, open circuit, CONCURRENT_CHANGE, ROLLBACK_CONFLICT or UNKNOWN ignored;
+9. current integration protection + exact required CI contexts are verified.
+
+Any contradiction or user-visible failure = NOT COMPLETE.
+
+## 11. Existing failed state / fallback
+Prior completion claims remain invalid. Existing branch URLs, page-content preview workarounds, public DM history, residue and design assumptions stay untrusted until remediated.
+
+On failure: freeze affected mutation; preserve sanitized evidence; re-read live state; rerun A/B/C; choose one changed evidence-backed recovery; revalidate. Never probe capability with mutations or hammer alternate writes.
+
+If an evidence domain cannot be automated safely, stop at last proven state and specify exact manual source/target/field/precondition/action/verification.
+
+## 12. Status
+Use explicit states: DESIGN APPROVED/REJECTED, SOURCE VERIFIED, CLEANUP REQUIRED, CLEAN BASELINE VERIFIED, DEPLOYMENT WRITTEN, STRUCTURALLY VERIFIED, VISUAL QA REQUIRED, VISUALLY APPROVED, DM HOLD, BLOCKED_PRIVATE_SOURCE, SCHEMA_MIGRATION_REQUIRED, CONCURRENT_CHANGE, ROLLBACK_CONFLICT, NEEDS REVIEW, BROKEN/MISSING, NO DESTINATION, PAUSED AT VALIDATED CHECKPOINT, BLOCKED, COMPLETE.
+
+`Verified` alone is prohibited.
+
+END-OF-FILE SENTINEL: TOTFR-ART-NOTION-GUARDRAILS-2026-09-04-HARDENED-V6

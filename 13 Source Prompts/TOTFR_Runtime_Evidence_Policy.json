@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "verification_doctrine": "VERIFY_THEN_TRUST_EXACT_STATE",
+  "visual_artifact_required": true,
+  "visual_artifact_ref_must_be_durable": true,
+  "visual_artifact_hash_algorithm": "SHA-256",
+  "ephemeral_signed_url_allowed": false,
+  "required_visual_fields": [
+    "target_id",
+    "destination_id",
+    "receipt_blob_sha",
+    "artifact_ref",
+    "artifact_sha256",
+    "captured_at",
+    "privacy",
+    "browser_runtime",
+    "viewport",
+    "hard_reload",
+    "decision"
+  ],
+  "player_safe_artifact_ref_prefixes": ["library://", "github://", "notion://", "dropbox://", "private://"],
+  "dm_artifact_ref_prefixes": ["library-private://", "notion-private://", "dropbox-private://", "private://"],
+  "dm_visual_evidence_public_storage_allowed": false
+}
