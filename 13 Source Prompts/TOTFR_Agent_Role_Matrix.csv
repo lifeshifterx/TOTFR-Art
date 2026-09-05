@@ -1,13 +1,13 @@
-role_id,notion_read,notion_write,github_read,github_prod_write,github_control_write,art_generate,art_approve,structural_approve,visual_approve,redteam,run_plan_write,description
-orchestrator,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,YES,Coordinates run and checkpoints; cannot mutate production or certify results
-surface_canon_auditor,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,YES,Builds desired-state mapping and canon/privacy evidence
-art_producer,NO,NO,YES,NO,NO,YES,NO,NO,NO,NO,NO,Produces candidates from locked specs only
-art_reviewer,YES,NO,YES,NO,NO,NO,YES,NO,NO,NO,NO,Independent pixel/canon/surface QA; cannot alter candidate
-github_steward,NO,NO,YES,YES,NO,NO,NO,NO,NO,NO,NO,Stores only approved player-safe production assets and verifies immutable refs
-notion_executor,YES,YES,YES,NO,NO,NO,NO,NO,NO,NO,NO,Sole Notion mutation role for a run; executes approved plan only
-structural_reviewer,YES,NO,YES,NO,NO,NO,NO,YES,NO,NO,NO,Independently verifies destination state and binary/provenance where possible
-visual_reviewer,YES,NO,YES,NO,NO,NO,NO,NO,YES,NO,NO,Uses authenticated rendered UI; cannot mutate target
-adversarial_reviewer,YES,NO,YES,NO,NO,NO,NO,NO,NO,YES,NO,Attempts to disprove plan/results and privacy/canon/completion claims
-control_author,YES,NO,YES,NO,YES,NO,NO,NO,NO,NO,NO,Authors guardrail/control changes on isolated PR branch only
-control_reviewer,YES,NO,YES,NO,NO,NO,NO,YES,NO,YES,NO,Reviews exact control-plane diff independently; cannot author it
-__EOF_CONTROL__,,,,,,,,,,,,TOTFR-AGENT-ROLE-MATRIX-2026-09-04-V1
+role_id,notion_read,notion_write,github_read,github_prod_write,github_control_write,github_merge,art_generate,art_approve,structural_approve,visual_approve,redteam,run_plan_write,description
+orchestrator,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,NO,YES,Coordinates run and checkpoints; cannot mutate production or certify results
+surface_canon_auditor,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,NO,YES,Builds desired-state mapping and canon/privacy evidence
+art_producer,NO,NO,YES,NO,NO,NO,YES,NO,NO,NO,NO,NO,Produces candidates from locked specs only
+art_reviewer,YES,NO,YES,NO,NO,NO,NO,YES,NO,NO,NO,NO,Independent pixel/canon/surface QA; cannot alter candidate
+github_steward,NO,NO,YES,YES,NO,NO,NO,NO,NO,NO,NO,NO,Stores only approved player-safe production assets and verifies immutable refs
+notion_executor,YES,YES,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,Sole Notion mutation role for a run; executes approved plan only
+structural_reviewer,YES,NO,YES,NO,NO,NO,NO,NO,YES,NO,NO,NO,Independently verifies destination state and binary/provenance where possible
+visual_reviewer,YES,NO,YES,NO,NO,NO,NO,NO,NO,YES,NO,NO,Uses authenticated rendered UI; cannot mutate target
+adversarial_reviewer,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,YES,NO,Attempts to disprove plan/results and privacy/canon/completion claims
+control_author,YES,NO,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,Authors guardrail/control changes on isolated PR branch only
+control_reviewer,YES,NO,YES,NO,NO,NO,NO,NO,YES,NO,YES,NO,Reviews exact control-plane diff independently; cannot author or merge it
+__EOF_CONTROL__,,,,,,,,,,,,,TOTFR-AGENT-ROLE-MATRIX-2026-09-04-V2
