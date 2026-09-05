@@ -39,7 +39,7 @@ require_text(readme,["TOTFR_Art_Notion_Deployment_Guardrails.md","TOTFR_App_Tool
 legacy=SRC/"TOTFR_Production_Manifest.md"
 if legacy.exists() and "SUPERSEDED FOR CURRENT REMASTER / DEPLOYMENT" not in legacy.read_text(encoding="utf-8"): fail("legacy production manifest is not explicitly superseded")
 require_text(SRC/"TOTFR_Art_Notion_Deployment_Guardrails.md",["CLEAN BASELINE VERIFIED","VISUALLY APPROVED"])
-require_text(SRC/"TOTFR_App_Tool_Execution_Safety_SOP.md",["A write/update endpoint must never be used as a substitute for a read/inspection endpoint.","exact target branch/ref","OPENS THE CIRCUIT","GLOBAL MUTATION FREEZE"])
+require_text(SRC/"TOTFR_App_Tool_Execution_Safety_SOP.md",["A write/update endpoint must never be used as a substitute for a read/inspection endpoint.","exact target branch/ref","OPENS THE CIRCUIT","GLOBAL MUTATION FREEZE","EXACT LIBRARY VERIFICATION"])
 require_text(SRC/"TOTFR_Art_Generation_Remaster_QA_SOP.md",["TOTFR_Surface_Matrix.csv","TOTFR_Surface_Matrix_Index.md","DESIGN APPROVED","Editing a specific existing image requires usable source pixels"])
 require_text(SRC/"TOTFR_GitHub_Upload_Safety_Plan.md",["PR-first control plane","CURRENT-HEAD CI FALLBACK","another branch/ref","tools/test_totfr_guardrails.py"])
 require_text(SRC/"TOTFR_Surface_Matrix_Index.md",["Evidence-bound fields","State-transition invariants","Circuit breaker / reset","approved_binary_sha"])
@@ -138,4 +138,4 @@ if errors:
     sys.exit(1)
 print("TOTFR GUARDRAIL VALIDATION PASSED")
 print(f"controlled_files={len(CONTROLLED)} matrix_shards={len(list(shard_dir.glob('*.csv'))) if shard_dir.exists() else 0} active_rows={len(seen_ids)}")
-print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED-V7")
+print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED-V8")
