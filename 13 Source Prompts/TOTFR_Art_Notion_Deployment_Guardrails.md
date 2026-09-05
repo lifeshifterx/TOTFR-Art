@@ -1,272 +1,173 @@
 # TOTFR Art & Notion Deployment Guardrails
 
 Status: MANDATORY PROJECT SOP
-Scope: TOTFR art creation/correction, GitHub storage, Notion cleanup/deployment, validation, and completion reporting.
 
 ## 1. Core principle
 Fail closed. File existence, a manifest, API success, a stored URL, or a ledger state does not prove completion.
 
-Keep these states separate:
-1. Source exists.
-2. Source binary is valid.
-3. Design fits the intended Notion surface.
-4. Bad/legacy deployment residue is removed or explicitly approved.
-5. Clean destination baseline is verified.
-6. Deployment write persisted.
-7. Destination structure is correct.
-8. Actual Notion rendering is visually correct.
-9. User-visible result is accepted.
+Required states are separate: SOURCE VERIFIED → DESIGN APPROVED → CLEAN BASELINE VERIFIED → DEPLOYMENT WRITTEN → STRUCTURALLY VERIFIED → VISUALLY APPROVED → COMPLETE.
 
-Only state 9 permits COMPLETE.
+COMPLETE requires all prior states, zero unresolved blockers, zero unapproved legacy residue, and user-visible acceptance where applicable.
 
 ## 2. Evidence precedence
-When evidence conflicts, use and document this order:
-1. Live destination state + rendered result.
-2. Live GitHub `development` tree.
-3. Actual binary inspection: content, dimensions, type, transparency, composition.
-4. Live Notion page/database/view schema.
-5. Current versioned deployment/remaster manifest.
-6. Package/local manifests and queues.
-7. Older manifests/prompts/ledgers/summaries.
+When evidence conflicts, use:
+1. live destination + rendered result;
+2. live GitHub `development`;
+3. inspected binary content/dimensions/type/composition;
+4. live Notion page/database/view schema;
+5. current remaster/deployment manifest;
+6. package queues/manifests;
+7. old manifests/prompts/ledgers/summaries.
 
 Never silently reconcile contradictions.
 
-## 2A. Mandatory startup gate
-Every TOTFR art/GitHub/Notion run must:
+## 2A. Mandatory startup
+Before any material action:
 1. Fetch this SOP from `development`.
-2. Record its path and Git commit/ref in the run log/manifest.
-3. Fetch the live destination schema/view before planning writes.
-4. Load the current deployment/remaster manifest and unresolved states.
-5. Load the cleanup/residue state for the surface being touched.
-6. STOP before material writes if the SOP/version or live destination cannot be established.
+2. Before any GitHub text write, fetch `13 Source Prompts/TOTFR_GitHub_Upload_Safety_Plan.md`.
+3. Record current SOP/Git ref in the run/checkpoint.
+4. Fetch live Notion destination schema/view before planning writes.
+5. Load current remaster/deployment and cleanup/residue state.
+6. STOP if current rules or destination cannot be established.
 
-Scheduled runs are not exempt. Prior chat summaries, memory, ledgers, or assistant statements cannot substitute for the current SOP and live state.
+Memory, prior chats, ledgers, or summaries never substitute for live reads.
 
-## 3. Three audits BEFORE every material action
-No image edit/generation, GitHub production write, Notion cleanup/deployment write, view/schema change, or completion-state update occurs until all three audits pass and are recorded.
+## 2B. HARD GitHub text-write gate
+Connector text writes have previously truncated near ~20 KB. That is a failure observation, not an operating threshold.
+
+For EVERY GitHub `create_file`/`update_file` text payload in this project:
+1. Build the exact final UTF-8 payload before the connector call.
+2. Measure exact UTF-8 bytes, not characters.
+3. HARD MAX = **12,000 bytes**. Above 12,000 = DO NOT CALL THE WRITE TOOL.
+4. Reduce/split first. Never “try it and see.”
+5. Compute expected Git blob SHA: SHA1(`b"blob " + str(byte_count) + b"\0" + payload_bytes`).
+6. Record `TEXT_WRITE_PREFLIGHT: <bytes> <= 12000` and expected SHA.
+7. Perform one write.
+8. Re-fetch exact file; require expected blob SHA and complete content.
+9. Mismatch/truncation/ambiguity = WRITE FAILED; stop dependent work.
+10. Never raise this ceiling because a larger prior write succeeded.
+
+If split, every part independently obeys 12,000 bytes and the parent enumerates all required parts. Missing part = STOP.
+
+## 3. Three audits BEFORE material action
+No edit/generation, GitHub production write, Notion cleanup/deployment, view/schema change, or completion update until all three are recorded.
 
 ### Audit A — Source/requirements
-Prove:
-- exact source path/version and live Git ref;
-- non-zero binary, dimensions/aspect/type;
-- subject/canon identity;
-- exact intended Notion destination;
-- player-safe vs DM-only classification;
-- applicable documentation and any stale/contradictory sources.
+Prove exact source/path/version/ref, binary existence/properties, subject/canon, exact destination, player-safe/DM classification, applicable docs, and stale/conflicting evidence.
 
-### Audit B — Destination compatibility + contamination
-Prove from live Notion:
-- exact page/database/data source/view;
-- view/card configuration and preview mechanism;
-- crop/contain behavior where exposed;
-- exact image property if one exists;
-- required surface: cover, card, inline header, icon, etc.;
-- native-title/UI collision risk;
-- whether schema changes are required;
-- every existing cover, icon, media property, inline image, embed, bookmark, external image link, and preview workaround on the target;
-- each existing visual reference classified KEEP, REMOVE, REPLACE, or UNKNOWN.
-
-UNKNOWN residue or destination behavior = STOP.
+### Audit B — Destination + contamination
+Prove from live Notion: exact page/database/data source/view; view/card settings; preview/storage mechanism; image property; crop/contain behavior where exposed; required surface; title/UI collision risk; schema impact; every cover/icon/media value/inline image/embed/bookmark/external link/preview workaround. Classify each KEEP/REMOVE/REPLACE/UNKNOWN. UNKNOWN = STOP.
 
 ### Audit C — Adversarial
-Attempt to disprove the action. Ask:
-- Could the mapping be wrong?
-- Could the write succeed but remain invisible?
-- Could crop/resize or embedded text fail visually?
-- Could an external source break/redirect/expire?
-- Could this expose DM/future information?
-- Could it alter campaign data/structure?
-- Could stale docs, old blocks, file properties, links, or ledgers mislead me?
-- Could bad content remain hidden behind the replacement?
-- Is rollback safe?
+Try to disprove the action: wrong mapping, invisible success, bad crop, text collision, broken/expiring source, spoiler exposure, unintended content/schema change, stale docs/links/blocks, hidden residue, unsafe rollback, insufficient session/tool capacity. Unresolved material risk = STOP or NEEDS REVIEW.
 
-Unresolved material risk = STOP or NEEDS REVIEW.
+## 4. Three validations AFTER material action
+1. **State:** re-fetch and prove intended cleanup/deployment persisted.
+2. **Structure:** prove correct asset/page/view/property; no unintended text/schema/relation change; no duplicate/conflicting primary image; no stale/broken/obsolete reference; no spoiler regression; correct storage/preview mechanism.
+3. **Visual:** validate rendered Notion presentation, not metadata. API success is insufficient. Use browser inspection or user screenshot.
 
-## 4. Three validations AFTER every material action
-### Validation 1 — State
-Re-fetch and prove the cleanup/deployment write persisted.
-
-### Validation 2 — Structure
-Prove correct asset/page/view/property; no unintended text/schema/relation change; no duplicate/conflicting primary image; no stale/broken/obsolete visual reference; no spoiler regression; correct storage/preview mechanism.
-
-### Validation 3 — Visual
-Validate the actual rendered Notion presentation, not metadata. Connector/API success is insufficient. Use browser-capable visual inspection or a user screenshot of the exact surface.
-
-Without visual evidence, maximum status is STRUCTURALLY VERIFIED; never VISUALLY APPROVED or COMPLETE.
+Without visual evidence, maximum status is STRUCTURALLY VERIFIED / VISUAL QA REQUIRED, never COMPLETE.
 
 ## 5. Status vocabulary
-Use only:
-- SOURCE VERIFIED
-- DESIGN AUDIT REQUIRED
-- DESIGN APPROVED
-- CLEANUP REQUIRED
-- CLEAN BASELINE VERIFIED
-- DEPLOYMENT READY
-- DEPLOYMENT WRITTEN
-- STRUCTURALLY VERIFIED
-- VISUAL QA REQUIRED
-- VISUALLY APPROVED
-- DM HOLD
-- NEEDS REVIEW
-- CANON CONFLICT
-- BROKEN/MISSING
-- NO APPROPRIATE DESTINATION
-- COMPLETE
+Use: SOURCE VERIFIED, DESIGN AUDIT REQUIRED, DESIGN APPROVED, CLEANUP REQUIRED, CLEAN BASELINE VERIFIED, DEPLOYMENT READY, DEPLOYMENT WRITTEN, STRUCTURALLY VERIFIED, VISUAL QA REQUIRED, VISUALLY APPROVED, DM HOLD, NEEDS REVIEW, CANON CONFLICT, BROKEN/MISSING, NO APPROPRIATE DESTINATION, PAUSED AT VALIDATED CHECKPOINT, BLOCKED, COMPLETE.
 
 `Verified` alone is prohibited.
 
-COMPLETE requires SOURCE VERIFIED + DESIGN APPROVED + CLEAN BASELINE VERIFIED + DEPLOYMENT WRITTEN + STRUCTURALLY VERIFIED + VISUALLY APPROVED, with no unresolved blocker or legacy residue.
-
 ## 6. Asset-design guardrails
-- Never infer a Notion surface from `Banner`, `Cover`, `Portrait`, or filenames alone.
+- Never infer Notion surface from filename labels.
 - Inspect every binary before reuse.
-- Separate variants when surfaces differ: page cover, gallery/card, inline title/header, icon/crest, navigation tile.
-- Treat page-cover cropping as responsive; dimensions alone never prove fit.
-- Ordinary page covers should not contain embedded titles unless visually tested and intentionally required. Prefer native Notion titles.
-- Keep critical text/faces/symbols/objects inside a tested crop-safe zone.
-- Prefer recrop/recompose/remove-text over regeneration when possible.
-- Never overwrite original `v01` art during remastering. Use a new version in `14 Notion Remaster/` or an equivalent reviewed structure.
+- Separate page cover, gallery/card, inline title/header, icon/crest, navigation variants when needed.
+- Responsive crop means dimensions alone never prove fit.
+- Ordinary covers should avoid embedded titles unless visually tested and required.
+- Keep critical content in tested crop-safe zones.
+- Prefer recrop/recompose/remove-text over regeneration.
+- Preserve `v01`; corrected art uses new versions under `14 Notion Remaster/` or reviewed equivalent.
 
 ## 7. Notion deployment guardrails
-- Prefer an existing Files & media property when the database provides one.
-- Do not insert a first-page image just to manipulate a gallery preview when a dedicated property exists.
-- Do not change view preview behavior until current view configuration and property population are audited.
-- Do not change schema solely for artwork without explicit approval after Audits B/C.
-- Do not use raw GitHub hotlinks as the default permanent Notion storage method. GitHub is archival source; prefer validated Notion-native media where supported.
-- If an external URL is intentionally used, validate rendering and record the dependency.
+- Prefer existing Files & media properties.
+- Do not use first-page-image preview hacks where a dedicated property exists.
+- Audit view preview behavior before changing it.
+- No artwork-only schema change without explicit approval after Audits B/C.
+- Raw GitHub hotlinks are not default permanent Notion storage; prefer validated Notion-native media where supported.
+- External URLs require recorded render validation.
 - Never rewrite lore, session data, dates, relations, properties, or DM content for image placement.
 
-## 7A. Mandatory legacy cleanup / decontamination
-Before the pilot or any replacement deployment, run a project-wide contamination discovery sweep across the TOTFR Notion space to identify every prior art/link deployment location, including locations omitted from old ledgers. Build the residue inventory first; do not assume the previous deployment list was complete.
+## 7A. Mandatory legacy cleanup
+Before pilot/replacement deployment, run a project-wide residue discovery sweep, including destinations absent from old ledgers.
 
-Then, before any replacement art is installed, establish a clean baseline for each affected destination.
+For each affected destination:
+1. Capture pre-change state.
+2. Inventory cover, icon, Files & media, inline images, embeds, bookmarks, page-content previews, gallery/board cover settings, external image links.
+3. Search known residue including `raw.githubusercontent.com/lifeshifterx/TOTFR-Art/`, old filenames/versions, broken placeholders, duplicates, and failed first-block workarounds.
+4. Classify every visual reference KEEP/REMOVE/REPLACE/UNKNOWN.
+5. Clear REMOVE/REPLACE before new art. Never hide bad content behind replacement.
+6. UNKNOWN = STOP.
+7. Re-fetch removals and re-scan all display/storage locations.
+8. Visually prove no blank/broken/duplicate/stale image remains.
+9. CLEAN BASELINE VERIFIED requires state, structural, and visual cleanup validation.
 
-1. Capture current state before mutation.
-2. Inventory page cover, icon, Files & media values, inline images, embeds, bookmarks, page-content preview images, gallery/board cover settings, and external image links.
-3. Search for prior TOTFR deployment residue, including known `raw.githubusercontent.com/lifeshifterx/TOTFR-Art/` links, old asset filenames/versions, broken placeholders, duplicates, and failed-deployment first-block workarounds.
-4. Classify every item KEEP, REMOVE, REPLACE, or UNKNOWN with a reason.
-5. Remove/clear REMOVE and REPLACE items **before** installing replacements. Never hide bad content behind new art.
-6. UNKNOWN = STOP until resolved.
-7. Re-fetch and prove removals persisted.
-8. Re-scan every relevant storage/display location and prove the destination is clean.
-9. Visually confirm no blank/broken/duplicate/stale image remains before replacement deployment. For a user-visible surface, if the current environment cannot render it, require a user/browser screenshot of that exact clean state.
-10. Mark CLEAN BASELINE VERIFIED only after all three cleanup validations pass, including visual evidence for user-visible surfaces.
-
-Clean baseline means ZERO unapproved legacy residue on that target. Any bad link, obsolete image, broken media, duplicate primary image, stale preview workaround, or hidden old deployment artifact blocks completion.
-
-This cleanup targets Notion deployment residue. Preserve archival/source `v01` GitHub art unless the user explicitly authorizes repository deletion. If cleanup would delete/rewrite campaign text, child pages, relations, or non-art content, STOP and use Section 15.
+Zero unapproved legacy residue is required. Preserve archival GitHub `v01` unless user authorizes deletion. If cleanup risks campaign text, child pages, relations, or non-art content, STOP and use Section 15.
 
 ## 8. GitHub guardrails
-The existing `TOTFR_GitHub_Upload_Safety_Plan.md` remains mandatory for transport integrity only; it does not certify design or Notion quality.
+`TOTFR_GitHub_Upload_Safety_Plan.md` is mandatory for transport integrity. Section 2B governs all text writes.
 
-Before binary production writes:
-- confirm `development`;
-- compare exact live path;
-- never count staging/chunks/ZIPs as production;
-- verify final path/size;
-- avoid repeated failed connector uploads;
-- use staging only after package-structure validation.
+For binary production writes: confirm `development`; compare live path; never count staging/chunks/ZIPs as production; verify final path/size; avoid repeated failed uploads; use staging only after structure validation. Do not use overwrite ZIP workflows for remastered files without reviewed path/overwrite analysis.
 
-The ZIP unpack workflow overwrites matching paths. Do not use it for remastered files without a reviewed path manifest and overwrite analysis.
-
-## 9. Manifest requirements
-A manifest is a ledger, not proof. Current deployment/remaster records must include:
-- version/date and SOP Git commit/ref;
-- Git ref audited;
-- source + remastered asset if applicable;
-- dimensions/type;
-- exact Notion destination/surface/preview/storage mechanism;
-- player-safe/DM class;
-- residue inventory/disposition;
-- evidence/status for Audits A/B/C;
-- cleanup status + three cleanup validations;
-- deployment status + three post-deployment validations;
-- final state and evidence/notes.
-
-Conflicting manifests must be reconciled against live GitHub, binaries, and live Notion; never choose silently.
+## 9. Manifest/checkpoint requirements
+Records are evidence storage, not proof. Include current SOP/Git ref, source/remaster asset, binary properties, exact Notion destination/surface/storage/preview mechanism, player-safe/DM class, residue disposition, Audits A/B/C evidence, cleanup validations, deployment validations, final state, and notes. Reconcile conflicts against live GitHub, binaries, and Notion.
 
 ## 10. Pilot-first rule
-No broad redeployment until these representative pilots pass cleanup, deployment, and visual QA:
+No broad redeployment until these pass cleanup, deployment, and visual QA:
 1. TOTFR Homepage
 2. Chapter I
 3. Braakport
 4. Abbigail
 5. Anchor Heart
 
-Each pilot must pass Audits A/B/C, CLEAN BASELINE VERIFIED, and all three post-deployment validations. One failed pilot blocks scale-out for its surface class.
+One failed pilot blocks scale-out for its surface class.
 
-## 11. Batch and stop rules
-After pilot approval, work one surface class at a time.
-- Notion cleanup/deployment: max 5 materially similar items per batch unless lower limits apply.
-- GitHub scheduled production uploads: max 3 files per `TOTFR_GitHub_Upload_Safety_Plan.md`. Lower/more-specific limit wins.
+## 11. Batch/session/stop rules
+- Notion cleanup/deployment: max 5 materially similar items; reduce to one when uncertain.
+- Scheduled GitHub production uploads: max 3 files.
+- Lower/more-specific tool limits win.
+- Never invent remaining context/session/connector/API/rate-limit capacity. Unknown capacity means smaller atomic batches.
+- Never start a mutation unless the same atomic run can reasonably finish Audits A/B/C, mutation, validations, and checkpoint.
+- Checkpoint at batch boundaries and after validated material items when practical: SOP/Git ref, surface/batch, last validated state, written-but-unvalidated item, residue state, exact next unstarted action, current error/limit.
+- Checkpoint persistence failure = STOP new mutations; report last proven live state. Never reconstruct from memory.
+- At rate/quota/tool/session limit: stop writes, do not hammer retries, re-fetch last target if possible, classify PROVEN PERSISTED / PROVEN ABSENT / UNKNOWN, checkpoint, never COMPLETE.
+- Resume by reloading SOP + live GitHub/Notion + checkpoint; reconcile UNKNOWN first and revalidate last boundary.
+- Before each batch ask: if the next tool call were the last available, would the project remain safe/resumable? If uncertain, shrink batch.
+- Any unexplained mismatch, broken image, crop, residue, view behavior, or contradiction freezes that surface class and requires re-audit.
 
-At the first unexplained failure, mismatch, broken image, unexpected crop, leftover residue, unexpected view behavior, or contradiction:
-1. Invalidate completion for affected items/class.
-2. Stop that surface class.
-3. Preserve exact evidence and last known good state.
-4. Mark CLEANUP REQUIRED, NEEDS REVIEW, or VISUAL QA REQUIRED.
-5. Re-run Audits A/B/C and Section 7A before another write.
+Limits never relax cleanup, audits, structural verification, visual QA, or completion gates.
 
-Do not respond to a failed write by trying unrelated mutation approaches repeatedly.
-
-## 11A. Session/usage-limit/resume gate
-- Never invent remaining context, message, connector, API, upload, or rate-limit capacity. Use exposed limit/status evidence; otherwise capacity is UNKNOWN.
-- UNKNOWN capacity requires smaller atomic batches, never weaker safeguards.
-- Never start a mutation unless the same atomic run can reasonably complete Audits A/B/C, the mutation, required validations, and checkpoint persistence. Do not queue unvalidated writes.
-- Persist a resume checkpoint at each batch boundary and after each fully validated material item when practical: SOP/Git refs, surface/batch, last exact validated state, any written-but-unvalidated item, residue state, exact next unstarted action, and current error/limit. A checkpoint is not proof; resume must re-fetch live state.
-- If checkpoint persistence fails, STOP new mutations and report CHECKPOINT PERSISTENCE FAILURE with the last proven live state. Never reconstruct it later from memory.
-- A normal chat reply is not background continuation. Large work must be split before mutation. If context/session pressure appears, stop new mutations, finish validation of the current atomic item if possible, checkpoint, and report the exact resume point.
-- At any explicit rate/quota/tool/session limit: stop new mutations; do not hammer retries; re-fetch the last attempted target if possible and classify the write PROVEN PERSISTED, PROVEN ABSENT, or UNKNOWN; checkpoint; never mark COMPLETE.
-- Resume only after reloading this SOP, live GitHub/Notion state, and checkpoint; reconcile UNKNOWN items first and revalidate the last completed boundary.
-- Existing limits remain: Notion cleanup/deployment max 5 materially similar items; scheduled GitHub production uploads max 3. Lower/more-specific limits win. Do not invent numeric ChatGPT/session limits when not exposed.
-- Scheduled runs must use bounded audited batches, reload this SOP, end with a checkpoint, and pause a surface class after any failed/UNKNOWN item.
-- Before each batch ask: if the next tool call were the last available, would the project remain safe and resumable? If uncertain, reduce the batch, including to one.
-- Session/usage limits never relax cleanup, Audits A/B/C, structural verification, visual QA, or Section 13. A limit yields PAUSED AT VALIDATED CHECKPOINT / BLOCKED / NEEDS REVIEW, never COMPLETE.
-
-## 12. Canon and spoiler guardrails
-Current campaign canon overrides old prompts/summaries. Artwork can itself spoil identities, transformations, villains, artifacts, locations, deaths, betrayals, encounters, or outcomes. Keep unrevealed items DM HOLD until explicitly released. Never publish future session dates or unrevealed events as completed history.
+## 12. Canon/spoiler
+Current canon overrides old prompts/summaries. Artwork can spoil identities, transformations, villains, artifacts, locations, deaths, betrayals, encounters, and outcomes. Keep unrevealed assets DM HOLD. Never publish future session dates or unrevealed events as completed history.
 
 ## 13. Completion + zero-residue gate
-Before COMPLETE, run a completion-disproof review: identify anything inferred, unseen, stale, technically successful but visually unproven, broken/blank, badly cropped, title-colliding, mismapped, duplicated, or still carrying old links/media/preview settings.
+Before COMPLETE, try to disprove it: identify inferred/unseen/stale evidence, technical success without visual proof, blank/broken/bad crop/title collision/mismatch/duplicate, and old links/media/preview settings.
 
-Then run **three full-project completion audits**:
-1. **Destination sweep:** every affected page/record/view for old covers/icons/media values/content images/embeds/bookmarks/preview settings/broken media.
-2. **Reference sweep:** search known old deployment URLs/filenames; every match must be intentional archival documentation or approved current content.
-3. **Adversarial visual sweep:** re-check representative/high-risk rendered surfaces specifically trying to disprove completion.
+Run three full-project audits:
+1. Destination sweep: affected pages/records/views for old covers/icons/media/content images/embeds/bookmarks/preview settings/broken media.
+2. Reference sweep: known old deployment URLs/filenames; every match intentional and approved.
+3. Adversarial visual sweep: high-risk rendered surfaces checked specifically for failure.
 
-Any unapproved residue or material uncertainty = NOT COMPLETE; re-audit and correct.
+Any unapproved residue or uncertainty = NOT COMPLETE. User-visible failure overrides ledger status immediately.
 
-Never let ledger counts override user-visible failure. User-visible failure immediately invalidates conflicting completion status.
+## 14. Existing failed deployment
+Prior TOTFR Notion completion claims are invalid as proof. Existing image/page/view changes remain untrusted until re-audited. Old raw GitHub links, broken/blank media, incorrect covers/icons, wrong file properties, stale first-block images, duplicates, and preview workarounds are untrusted until classified and cleared/approved.
 
-## 14. Existing failed deployment state
-All prior TOTFR Notion completion claims are invalid as proof. Existing image/page/view changes are untrusted until individually re-audited.
+## 15. Failure recovery / manual fallback
+On failure:
+1. Never report completion.
+2. Freeze affected surface class.
+3. Record exact operation/result/destination/asset/last good state.
+4. Re-run Audits A/B/C + residue inventory.
+5. Classify failure: design, residue, storage/link, view, schema/property, tool/connector, permissions, crop/layout, write-size/preflight.
+6. Produce one evidence-backed recovery path and audit it before execution.
+7. Repeat all validations and residue sweep after correction.
 
-Before corrected deployment, affected destinations must pass Section 7A. Old raw GitHub links, broken/blank media, incorrect covers/icons, wrong Files & media values, stale first-block images, duplicates, and failed-attempt preview workarounds are presumed untrusted until classified and cleared or explicitly approved.
-
-Cleanup/rollback/reuse is a material action and must pass Audits A/B/C. Do not build on the old `Verified = 77` assumption.
-
-## 15. Failure recovery and manual fallback
-If cleanup/deployment/validation fails:
-1. Never report partial success as completion.
-2. Freeze writes to the affected surface class.
-3. Record exact operation/result, destination, asset, and last known good state.
-4. Re-run Audits A/B/C plus the full residue inventory.
-5. Identify the failure class: design, residue, storage/link, view, schema/property, tool/connector, permissions, or crop/layout.
-6. Produce one evidence-backed recovery path and audit it again before execution.
-7. After correction, repeat all three post-action validations and the residue sweep. A failed item never inherits its prior completion state.
-
-If tools cannot safely remove bad Notion content, do not improvise destructive workarounds. Give the user an exact manual cleanup checklist per destination, including where applicable:
-- page/database/record name;
-- cover/icon to remove/replace;
-- Files & media property to clear;
-- broken/old inline image, embed, bookmark, or preview block to delete;
-- gallery/board preview source to restore/change per the audited Surface Matrix;
-- old URL/filename patterns to search;
-- expected clean state;
-- exact replacement asset/destination;
-- final reload/visual checks/screenshots needed to prove zero residue.
-
-Manual cleanup must preserve campaign text, child pages, relations, properties, DM-only content, and chronology. If a safe step cannot be specified confidently, report the exact blocker instead of guessing.
+If tools cannot safely remove bad Notion content, provide exact manual cleanup per destination: page/record, cover/icon, Files & media property, inline image/embed/bookmark/preview block, view preview source, old URL/filename patterns, expected clean state, exact replacement, final visual checks. Preserve campaign content/structure. If a safe step cannot be specified, report exact blocker.
 
 ## 16. Change control
-This SOP is mandatory. Any deviation must state the rule, reason, pass Audits A/B/C, and receive explicit user approval before execution. Never weaken guardrails for convenience, speed, API limits, or context limits.
+This SOP is mandatory. Any deviation must name the rule/reason, pass Audits A/B/C, and receive explicit user approval. Never weaken guardrails for convenience, speed, API/context limits, or because a prior risky operation happened to succeed.
