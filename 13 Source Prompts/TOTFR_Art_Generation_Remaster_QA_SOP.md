@@ -44,7 +44,8 @@ Before generation/editing record:
 - must-show / must-not-show;
 - canon/spoiler class;
 - style anchors;
-- explicit rejection criteria.
+- explicit rejection criteria;
+- exact generation prompt/edit instructions, input references, and tool/model/version when exposed.
 
 Do not improvise outside the locked spec.
 
@@ -64,7 +65,7 @@ Default remaster: preserve useful source art; prefer recrop/recompose/remove-tex
 
 ## 6. Three validations AFTER generation/editing
 **Validation 1 — Technical binary**
-Prove file opens/non-zero; correct format; actual pixel dimensions/aspect recorded; transparency correct; no corruption/alpha matte/clipping/border; correct unique filename/version; original source preserved.
+Prove file opens/non-zero; correct format; actual pixel dimensions/aspect recorded; transparency correct; no corruption/alpha matte/clipping/border or export-compression damage; correct unique filename/version; original source preserved; prompt/edit-spec lineage recorded.
 
 **Validation 2 — Visual/semantic**
 Inspect actual pixels full-size and at intended small/cropped view. Reject:
