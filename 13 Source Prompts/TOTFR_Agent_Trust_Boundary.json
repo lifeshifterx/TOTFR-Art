@@ -1,10 +1,12 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "verification_doctrine": "VERIFY_THEN_TRUST_EXACT_STATE",
   "agent_identity_enforcement_state": "UNCONFIGURED",
   "self_declared_instance_ids_are_security_identity": false,
-  "tier2_requires_human_owner_pass_when_identity_unconfigured": true,
-  "required_human_review_role": "human_owner",
-  "required_human_runtime_class": "human",
+  "human_file_attestation_is_security_identity": false,
+  "tier1_agent_execution_allowed_when_identity_unconfigured": true,
+  "tier2_agent_execution_allowed_when_identity_unconfigured": false,
+  "tier2_unconfigured_required_path": "USER_PERFORMS_EXACT_TIER2_ACTION_OR_IDENTITY_BOUNDARY_IS_UPGRADED",
   "future_enforcement_requirements": [
     "distinct authenticated execution principals or enforceable per-agent tool credentials",
     "runtime-enforced role tool allowlists",
