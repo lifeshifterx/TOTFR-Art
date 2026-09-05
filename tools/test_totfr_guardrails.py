@@ -66,8 +66,9 @@ add("app read-before-write rule removed",lambda r:replace(r/"13 Source Prompts"/
 add("art matrix routing removed",lambda r:replace(r/"13 Source Prompts"/"TOTFR_Art_Generation_Remaster_QA_SOP.md","TOTFR_Surface_Matrix_Index.md","REMOVED_MATRIX_INDEX"),"required control missing")
 add("workflow mutation gate removed",lambda r:replace(r/".github"/"workflows"/"validate-totfr-guardrails.yml","python tools/test_totfr_guardrails.py","echo tests-removed"),"guardrail workflow missing required control")
 add("workflow dependency regression",lambda r:replace(r/".github"/"workflows"/"validate-totfr-guardrails.yml","actions/checkout@v7","actions/checkout@v4"),"guardrail workflow missing required control")
+add("exact-head CI fallback removed",lambda r:replace(r/"13 Source Prompts"/"TOTFR_GitHub_Upload_Safety_Plan.md","CURRENT-HEAD CI FALLBACK","REMOVED_HEAD_GATE"),"required control missing")
 def main():
     expect_clean("initial clean baseline")
     for n,m,s in cases:expect_reject(n,m,s); print(f"PASS reject: {n}")
-    expect_clean("final clean baseline"); print(f"TOTFR MUTATION TESTS PASSED: rejected={len(cases)} clean_baselines=2"); print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-MUTATION-TESTS-2026-09-04-HARDENED-V2"); return 0
+    expect_clean("final clean baseline"); print(f"TOTFR MUTATION TESTS PASSED: rejected={len(cases)} clean_baselines=2"); print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-MUTATION-TESTS-2026-09-04-HARDENED-V3"); return 0
 if __name__=="__main__":raise SystemExit(main())
