@@ -28,6 +28,10 @@ jobs:
         run: python tools/validate_totfr_guardrails.py
       - name: Prove base guardrails reject known bad states
         run: python tools/test_totfr_guardrails.py
+      - name: Validate agent role and no-merge boundary
+        run: python tools/validate_totfr_role_boundary.py
+      - name: Prove role boundary rejects privilege overlap
+        run: python tools/test_totfr_role_boundary.py
       - name: Validate multi-agent transactional deployment controls
         run: python tools/validate_totfr_agent_controls.py
       - name: Prove agent controls reject fraudulent deployment states
