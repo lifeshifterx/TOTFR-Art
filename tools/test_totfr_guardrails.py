@@ -84,6 +84,7 @@ def visualwithoutevidence(r):
 add("visual approval without evidence",visualwithoutevidence,"VISUALLY APPROVED missing visual_evidence_ref")
 add("app branch-local SHA rule removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_App_Tool_Execution_Safety_SOP.md","exact target branch/ref","REMOVED_BRANCH_RULE"),"required control missing")
 add("app circuit breaker removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_App_Tool_Execution_Safety_SOP.md","OPENS THE CIRCUIT","REMOVED_CIRCUIT"),"required control missing")
+add("exact Library verification removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_App_Tool_Execution_Safety_SOP.md","EXACT LIBRARY VERIFICATION","REMOVED_LIBRARY_VERIFY"),"required control missing")
 add("PR-first rule removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_GitHub_Upload_Safety_Plan.md","PR-first control plane","REMOVED_PR_FIRST"),"required control missing")
 add("matrix evidence rule removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_Surface_Matrix_Index.md","Evidence-bound fields","REMOVED_EVIDENCE"),"required control missing")
 add("workflow mutation tests removed",lambda r:repl(r/".github/workflows/validate-totfr-guardrails.yml","python tools/test_totfr_guardrails.py","echo removed"),"guardrail workflow missing required control")
@@ -93,5 +94,5 @@ add("workflow write privilege",lambda r:repl(r/".github/workflows/validate-totfr
 def main():
     clean()
     for n,m,s in cases:reject(n,m,s);print("PASS reject:",n)
-    clean();print(f"TOTFR MUTATION TESTS PASSED: rejected={len(cases)} clean_baselines=2");print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-MUTATION-TESTS-2026-09-04-HARDENED-V5")
+    clean();print(f"TOTFR MUTATION TESTS PASSED: rejected={len(cases)} clean_baselines=2");print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-MUTATION-TESTS-2026-09-04-HARDENED-V6")
 if __name__=="__main__":raise SystemExit(main())
