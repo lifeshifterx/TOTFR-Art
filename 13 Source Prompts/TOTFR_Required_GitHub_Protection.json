@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "integration_branch": "~DEFAULT_BRANCH",
+  "required_rule_types": ["deletion", "non_fast_forward", "pull_request", "required_status_checks"],
+  "required_status_contexts": ["validate", "control-plane-integrity"],
+  "strict_required_status_checks_policy": true,
+  "allow_always_bypass": false,
+  "working_branches_may_accept_fast_forward_writes": true,
+  "verification_doctrine": "VERIFY_THEN_TRUST_EXACT_STATE"
+}
