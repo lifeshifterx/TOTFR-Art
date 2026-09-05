@@ -1,6 +1,6 @@
 # TOTFR Transactional Agent Deployment SOP
 
-Status: MANDATORY DEPLOYMENT MODULE — 2026-09-04-V4
+Status: MANDATORY DEPLOYMENT MODULE — 2026-09-04-V5
 
 Purpose: make Notion art deployment deterministic, idempotent, concurrency-safe, reviewable and recoverable. Current workspace is CONTAMINATED/UNTRUSTED until a new run proves otherwise.
 
@@ -47,7 +47,7 @@ Tier 0: read-only/NOOP. Tier 1: existing cover/icon/file property value. Tier 2:
 Every active mutating run needs structural reviewer PASS bound to exact frozen run/plan blobs. Tier 2 also needs adversarial PASS + machine validation and at least one passing reviewer runtime different from plan author when available. Author/executor/reviewer instances differ. User-visible completion requires visual reviewer.
 
 ## 7. Optimistic concurrency
-Notion has no conditional transaction/row lock. Capture page `last_edited_at` when available plus exact relevant property/cover/icon; schema fingerprint for data-source changes; normalized view fingerprint for view changes.
+Every mutation uses optimistic concurrency because Notion has no conditional transaction/row lock. Capture page `last_edited_at` when available plus exact relevant property/cover/icon; schema fingerprint for data-source changes; normalized view fingerprint for view changes.
 
 Immediately before write, re-fetch. Changed precondition = `CONCURRENT_CHANGE` / STOP. Never merge/overwrite newer edits automatically.
 
@@ -91,4 +91,4 @@ Independent adversarial reviewer tries to prove: omitted target; mutable branch 
 
 Any success = NOT COMPLETE.
 
-END-OF-FILE SENTINEL: TOTFR-TRANSACTIONAL-AGENT-DEPLOYMENT-2026-09-04-V4
+END-OF-FILE SENTINEL: TOTFR-TRANSACTIONAL-AGENT-DEPLOYMENT-2026-09-04-V5
