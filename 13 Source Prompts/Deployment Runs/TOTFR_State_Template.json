@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "run_id": "YYYYMMDD-HHMMSSZ-purpose-r1",
+  "phase": "PLANNED",
+  "circuit_state": "CLOSED",
+  "checkpoint": "UNSET",
+  "blockers": [],
+  "updated_at": "1970-01-01T00:00:00Z"
+}
