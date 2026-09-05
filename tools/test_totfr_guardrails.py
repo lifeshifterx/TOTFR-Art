@@ -87,8 +87,11 @@ add("app circuit breaker removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_App
 add("PR-first rule removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_GitHub_Upload_Safety_Plan.md","PR-first control plane","REMOVED_PR_FIRST"),"required control missing")
 add("matrix evidence rule removed",lambda r:repl(r/"13 Source Prompts"/"TOTFR_Surface_Matrix_Index.md","Evidence-bound fields","REMOVED_EVIDENCE"),"required control missing")
 add("workflow mutation tests removed",lambda r:repl(r/".github/workflows/validate-totfr-guardrails.yml","python tools/test_totfr_guardrails.py","echo removed"),"guardrail workflow missing required control")
+add("workflow checkout unpinned",lambda r:repl(r/".github/workflows/validate-totfr-guardrails.yml","actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1","actions/checkout@v7"),"guardrail workflow missing required control")
+add("workflow credentials persisted",lambda r:repl(r/".github/workflows/validate-totfr-guardrails.yml","persist-credentials: false","persist-credentials: true"),"guardrail workflow missing required control")
+add("workflow write privilege",lambda r:repl(r/".github/workflows/validate-totfr-guardrails.yml","contents: read","contents: write"),"guardrail workflow missing required control")
 def main():
     clean()
     for n,m,s in cases:reject(n,m,s);print("PASS reject:",n)
-    clean();print(f"TOTFR MUTATION TESTS PASSED: rejected={len(cases)} clean_baselines=2");print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-MUTATION-TESTS-2026-09-04-HARDENED-V4")
+    clean();print(f"TOTFR MUTATION TESTS PASSED: rejected={len(cases)} clean_baselines=2");print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-MUTATION-TESTS-2026-09-04-HARDENED-V5")
 if __name__=="__main__":raise SystemExit(main())
