@@ -1,6 +1,6 @@
 # TOTFR App & Tool Execution Safety SOP
 
-Status: MANDATORY TOOL-CONTROL SOP — 2026-09-04-HARDENED
+Status: MANDATORY TOOL-CONTROL SOP — 2026-09-04-HARDENED-V2
 Scope: every external app/tool operation used in TOTFR art production, GitHub storage, Notion cleanup/deployment, or persistent checkpointing.
 
 ## 1. Capability before action
@@ -58,7 +58,9 @@ If any step cannot be completed, the item cannot advance beyond its last proven 
 ## 6. Files/Library/checkpoint controls
 - Persistent Library/checkpoint data is a resume aid, not higher authority than live GitHub/Notion/binaries.
 - Overwrite/update persistent SOP snapshots only from a version already validated at the authoritative source.
-- Verify resulting path/version/size after persistence writes.
+- **EXACT LIBRARY VERIFICATION:** after a Library persistence write, verify the specific destination by exact title/path search or direct read using the returned file/library ID. A broad folder listing alone is insufficient because newly written entries may not appear there immediately.
+- Confirm the exact persisted file name/path and expected size/content marker before treating the write as persisted.
+- If broad list and exact lookup disagree, classify the list as potentially stale; use exact lookup/read to resolve. If exact lookup cannot prove the write, status is UNKNOWN/STOP.
 - Never reconstruct a failed/missing checkpoint from memory and present it as persisted truth.
 - A checkpoint records UNKNOWN states rather than resolving them by assumption.
 
@@ -88,4 +90,4 @@ Any concerning answer = shrink to one, change to read-only investigation, or STO
 ## 9. Completion rule
 No app/tool operation can independently produce COMPLETE. Completion comes only from the governed project chain and its required Art, GitHub, Notion, visual, residue, and disproof gates.
 
-END-OF-FILE SENTINEL: TOTFR-APP-TOOL-EXECUTION-SAFETY-2026-09-04-HARDENED
+END-OF-FILE SENTINEL: TOTFR-APP-TOOL-EXECUTION-SAFETY-2026-09-04-HARDENED-V2
