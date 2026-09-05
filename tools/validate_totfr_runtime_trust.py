@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import json,re,sys
-ROOT=Path(__file__).resolve().parents[1];SRC=ROOT/'13 Source Prompts';ERR=[]
+import json,os,re,sys
+ROOT=Path(os.environ.get('TOTFR_ROOT',Path(__file__).resolve().parents[1])).resolve();SRC=ROOT/'13 Source Prompts';ERR=[]
 def fail(x):ERR.append(x)
 def load(p,label):
  if not p.exists():fail(f'missing {label}: {p.relative_to(ROOT)}');return None
@@ -32,10 +32,10 @@ if runs.exists():
   tier2=False
   for ent in run.get('plan_shards',[]):
    p=ROOT/str(ent.get('path',''))
-   if not p.exists():continue
-   for line in p.read_text(encoding='utf-8').splitlines():
+   if not p.exists():fail(f'missing plan shard during runtime trust scan: {p}');continue
+   for n,line in enumerate(p.read_text(encoding='utf-8').splitlines(),1):
     try:o=json.loads(line)
-    except Exception:continue
+    except Exception as e:fail(f'plan parse failure during runtime trust scan {p.relative_to(ROOT)}:{n}: {e}');continue
     if o.get('type')=='EOF_CONTROL':continue
     if o.get('risk_tier')==2:tier2=True
   if tier2 and trust.get('agent_identity_enforcement_state')=='UNCONFIGURED' and state.get('phase') not in {'PLANNED','BLOCKED'}:
@@ -61,4 +61,4 @@ if ERR:
  for e in ERR:print('- '+e)
  sys.exit(1)
 print('TOTFR RUNTIME TRUST VALIDATION PASSED')
-print('END-OF-FILE SENTINEL: TOTFR-RUNTIME-TRUST-VALIDATOR-2026-09-04-V1')
+print('END-OF-FILE SENTINEL: TOTFR-RUNTIME-TRUST-VALIDATOR-2026-09-04-V2')
