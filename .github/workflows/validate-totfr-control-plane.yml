@@ -27,6 +27,10 @@ jobs:
         run: python tools/validate_totfr_meta_controls.py
       - name: Prove control-plane self-protection rejects weakened states
         run: python tools/test_totfr_meta_controls.py
+      - name: Validate agent role and no-merge boundary
+        run: python tools/validate_totfr_role_boundary.py
+      - name: Prove role boundary rejects privilege overlap
+        run: python tools/test_totfr_role_boundary.py
       - name: Verify live GitHub integration protection
         run: python tools/validate_totfr_live_protection.py
         env:
