@@ -3,28 +3,14 @@ name: Validate TOTFR Guardrails
 'on':
   push:
     branches: [development]
-    paths:
-      - 'README.md'
-      - 'AGENTS.md'
-      - '13 Source Prompts/**'
-      - 'tools/validate_totfr_guardrails.py'
-      - 'tools/test_totfr_guardrails.py'
-      - 'tools/validate_totfr_agent_controls.py'
-      - 'tools/test_totfr_agent_controls.py'
-      - '.github/workflows/validate-totfr-guardrails.yml'
   pull_request:
-    paths:
-      - 'README.md'
-      - 'AGENTS.md'
-      - '13 Source Prompts/**'
-      - 'tools/validate_totfr_guardrails.py'
-      - 'tools/test_totfr_guardrails.py'
-      - 'tools/validate_totfr_agent_controls.py'
-      - 'tools/test_totfr_agent_controls.py'
-      - '.github/workflows/validate-totfr-guardrails.yml'
 
 permissions:
   contents: read
+
+concurrency:
+  group: totfr-guardrails-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -45,3 +31,11 @@ jobs:
         run: python tools/validate_totfr_agent_controls.py
       - name: Prove agent controls reject fraudulent deployment states
         run: python tools/test_totfr_agent_controls.py
+      - name: Validate runtime identity and durable evidence trust
+        run: python tools/validate_totfr_runtime_trust.py
+      - name: Prove runtime trust rejects unsafe states
+        run: python tools/test_totfr_runtime_trust.py
+      - name: Verify live GitHub integration protection
+        run: python tools/validate_totfr_live_protection.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
