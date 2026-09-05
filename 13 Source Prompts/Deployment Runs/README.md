@@ -1,6 +1,6 @@
 # TOTFR Deployment Run Ledger
 
-Status: MANDATORY RUN FORMAT — 2026-09-04-V5
+Status: MANDATORY RUN FORMAT — 2026-09-04-V6
 
 Each deployment attempt gets a unique directory:
 `13 Source Prompts/Deployment Runs/<run_id>/`
@@ -49,6 +49,8 @@ Prohibited: mutable `/development/` desired URLs; source/URL commit mismatch; pu
 ## Approval / trust boundary
 Every active mutating Tier-1 run requires structural reviewer PASS bound to exact `run_json_blob_sha` + ordered `plan_shard_blob_shas`.
 
+Attestations retain `reviewer_instance_id` and runtime fields for traceability only; they are not security identities unless the Trust Boundary later proves enforceable identity isolation.
+
 Tier-2 includes schema/view/root navigation/player-DM/publication/control-plane changes. While `TOTFR_Agent_Trust_Boundary.json` says identity enforcement is `UNCONFIGURED`, Tier-2 agent execution is prohibited: state may remain `PLANNED` or `BLOCKED` only. Self-declared agent IDs or a repository file claiming human approval cannot override this.
 
 After enforceable identity is configured, Tier-2 still requires adversarial review and the trust-boundary rules in force at the pinned `control_ref`.
@@ -61,7 +63,7 @@ Receipt binds exact WAL SHA and records result `SUCCESS|FAIL|CONCURRENT_CHANGE|U
 ## Visual evidence
 Every mutating target needs a visual PASS bound to its exact receipt SHA and a durable artifact. Required fields:
 - `target_id`, `destination_id`, `receipt_blob_sha`
-- `review_role=visual_reviewer`, reviewer instance/runtime
+- `review_role=visual_reviewer`, `reviewer_instance_id`, runtime
 - `artifact_ref`, `artifact_sha256`, `captured_at`
 - `privacy=PLAYER_SAFE|DM_HOLD`
 - browser/runtime, viewport, `hard_reload=true`, `decision=PASS`
@@ -76,4 +78,4 @@ Only `final.json` may assert COMPLETE. It must contain adversarial PASS bound to
 
 No open circuit, concurrency conflict, rollback conflict, UNKNOWN, missing durable visual artifact, unverified evidence domain, or unapproved residue may remain.
 
-END-OF-FILE SENTINEL: TOTFR-DEPLOYMENT-RUN-LEDGER-2026-09-04-V5
+END-OF-FILE SENTINEL: TOTFR-DEPLOYMENT-RUN-LEDGER-2026-09-04-V6
