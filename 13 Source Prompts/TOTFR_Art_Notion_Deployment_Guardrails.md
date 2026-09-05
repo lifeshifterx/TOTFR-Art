@@ -15,12 +15,12 @@ Later stages never excuse earlier failures.
 ## 2. Mandatory startup
 Before action:
 1. Fetch this SOP from GitHub `development`.
-2. Fetch `13 Source Prompts/TOTFR_Art_Generation_Remaster_QA_SOP.md`.
-3. Before GitHub writes, fetch `13 Source Prompts/TOTFR_GitHub_Upload_Safety_Plan.md`.
-4. Record SOP/module/Git refs.
-5. Art: load Surface Matrix/remaster row + source binary.
-6. Notion: fetch live schema/view + residue state.
-7. STOP if a module, source, Surface Matrix row, destination, or checkpoint cannot be established.
+2. Fetch `13 Source Prompts/TOTFR_App_Tool_Execution_Safety_SOP.md`.
+3. Fetch `13 Source Prompts/TOTFR_Art_Generation_Remaster_QA_SOP.md`.
+4. Before GitHub writes, fetch `13 Source Prompts/TOTFR_GitHub_Upload_Safety_Plan.md`.
+5. Record SOP/module/Git refs.
+6. Art: load Surface Matrix + source. Notion: fetch live schema/view + residue.
+7. STOP if a module, source, Surface Matrix row, destination, or checkpoint is unknown.
 
 Memory/chats never replace live reads. Evidence: rendered destination > live GitHub > inspected binary > live Notion > current Surface Matrix/manifest > older docs.
 
@@ -33,7 +33,7 @@ Record all three.
 
 **C Adversarial:** try to prove failure: mapping, invisible success, crop/text defect, generated artifacts, broken source, spoiler, unintended change, stale residue, rollback, write-size/session/tool capacity. Unresolved risk = STOP/NEEDS REVIEW.
 
-Art also obeys Art Generation SOP. GitHub writes obey Upload Safety.
+All app/tool actions obey App/Tool SOP. Art obeys Art SOP. GitHub writes obey Upload Safety.
 
 ## 4. Three validations AFTER material action
 1. STATE: re-fetch and prove persistence.
@@ -42,26 +42,16 @@ Art also obeys Art Generation SOP. GitHub writes obey Upload Safety.
 
 No required visual evidence = VISUAL QA REQUIRED.
 
-## 5. GitHub text-write gate
-~20 KB truncation is a failure boundary, never a target.
-- Mandatory SOP target <= 8,000 UTF-8 bytes.
-- Direct text > 10,000 bytes = STOP; reduce/split.
-- No probing/manual expansion during connector call.
-- Controlled SOP/manifest ends with unique END-OF-FILE SENTINEL.
-- Re-fetch after one write; require expected sections + sentinel.
-- Missing sentinel/section, malformed tail, ambiguity, or preflight mismatch = WRITE FAILED.
-- Never raise limits because prior risk succeeded.
-- Split docs must be enumerated by parent; missing module = STOP.
+## 5. GitHub write gate
+All GitHub writes obey Upload Safety. For controlled text: stay within its hard byte envelope, never probe limits, require an end sentinel, and re-fetch after one write. Any truncation/missing section/sentinel/ambiguity = WRITE FAILED. Missing required split module = STOP.
 
 ## 6. Art gate
 No art enters production unless Art Generation SOP reports DESIGN APPROVED.
 
-Required there: source/canon/surface lock; capability check; crop/text rules; rejection criteria; technical + visual + cross-surface QA; `v01` preservation; rejected art excluded; separate derivatives for incompatible surfaces.
-
-GitHub existence never upgrades art status.
+The Art SOP governs source/canon/surface locks, capability, composition/text, rejection criteria, technical/visual/cross-surface QA, `v01` preservation, rejection handling, and derivatives. GitHub existence never upgrades art status.
 
 ## 7. Notion cleanup/deployment
-Before replacement, sweep all TOTFR Notion for residue, including unlogged destinations.
+Before replacement, sweep all TOTFR Notion for residue, including unlogged targets.
 
 Per destination:
 1. Capture state.
@@ -73,7 +63,7 @@ Per destination:
 7. Visually prove no blank/broken/duplicate/stale image.
 8. CLEAN BASELINE VERIFIED requires state + structural + visual cleanup validation.
 
-Deploy only DESIGN APPROVED art using audited surface mechanism. Prefer Files & media; no preview hacks where a dedicated property exists. Audit preview behavior first. No artwork-only schema change without approval. Raw GitHub hotlinks are not default storage; external URLs require render validation. Never rewrite campaign content for art placement.
+Deploy only DESIGN APPROVED art by the audited surface mechanism. Prefer Files & media; no preview hacks when a dedicated property exists. Audit preview first. No art-only schema change without approval. Raw GitHub hotlinks are not default storage; external URLs require render validation. Never rewrite campaign content for art.
 
 Zero unapproved residue required; preserve archival `v01` unless deletion authorized.
 
@@ -121,7 +111,7 @@ On failure:
 5. Produce one evidence-backed recovery path and audit before execution.
 6. Repeat validations; failed items never inherit approval.
 
-If tools cannot safely generate/edit/clean/deploy, give exact manual/external steps: source, production spec, asset/path, page/record, art field/block/view, old URL patterns, clean state, replacement, visual checks. Preserve campaign content/structure; otherwise report exact blocker.
+If tools cannot safely act, give exact manual/external steps: source/spec, asset/path, page/record, field/block/view, old URL patterns, clean state, replacement, visual checks. Preserve campaign content/structure; otherwise report exact blocker.
 
 ## 14. Status/control
 Statuses include: INPUT/SURFACE/PLAN LOCKED, GENERATED/UNVALIDATED, DESIGN REJECTED/APPROVED, SOURCE VERIFIED, CLEANUP REQUIRED, CLEAN BASELINE VERIFIED, DEPLOYMENT WRITTEN, STRUCTURALLY VERIFIED, VISUAL QA REQUIRED, VISUALLY APPROVED, DM HOLD, NEEDS REVIEW, CANON CONFLICT, BROKEN/MISSING, NO DESTINATION, PAUSED AT VALIDATED CHECKPOINT, BLOCKED, COMPLETE.
