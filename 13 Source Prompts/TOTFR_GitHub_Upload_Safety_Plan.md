@@ -1,7 +1,7 @@
 # GitHub Upload Safety Plan
 
 Status: MANDATORY TRANSPORT SOP
-Version: 2026-09-04-HARDENED-V4
+Version: 2026-09-04-HARDENED-V5
 
 ## 1. Non-negotiable text-write envelope
 Observed behavior: connector text writes have previously truncated near ~20 KB. That is a failure observation, not an operating threshold.
@@ -54,6 +54,7 @@ Control-plane includes README authority, mandatory SOPs, validator/tests/workflo
 - Direct control-plane writes to `development` are prohibited unless the user explicitly authorizes an emergency exception after Audits A/B/C and rollback planning.
 - Fetch the exact branch-local path/SHA immediately before each write.
 - Open a PR to `development`; PR-head validator and mutation tests must pass.
+- **PR FRESHNESS GATE:** before review/merge, compare the PR head against the current `development`. If the branch is behind, or the base advanced in any overlapping controlled file, STOP. Reconcile every upstream controlled-file delta, make the branch contain current `development` history, then require a new PR-head validation run. Green CI from the stale head is invalid.
 - Review the full PR diff adversarially before merge. Once independent reviewer agents are available, at least one reviewer agent that did not author the change must approve the evidence/controls; authoring agents may not self-certify.
 - Merge only the reviewed, green head SHA. After merge, require a new exact-`development`-head validation run; PR success cannot be inherited after merge.
 - A later control-plane commit invalidates the prior authorization.
@@ -74,4 +75,4 @@ This is PROCESS-ENFORCED until repository protection is actually enabled.
 ## 7. Session/resume
 Never start a write unless the run can reasonably perform write + re-fetch verification + checkpoint. At any rate/quota/session/tool limit, stop new writes, classify last attempt PROVEN PERSISTED / PROVEN ABSENT / UNKNOWN when possible, checkpoint, and never infer completion.
 
-END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED-V4
+END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED-V5
