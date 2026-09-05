@@ -209,6 +209,17 @@ At the first unexplained failure, mismatch, broken image, unexpected crop, lefto
 
 Do not respond to a failed write by trying unrelated mutation approaches repeatedly.
 
+## 11A. Session/usage-limit gate
+`13 Source Prompts/TOTFR_Session_Usage_Resumability_Guardrails.md` is a mandatory companion SOP and must be loaded with this file for every long, scheduled, or multi-batch run.
+
+Core rules:
+- Never invent remaining context, message, connector, API, upload, or rate-limit capacity; unknown capacity is treated as UNKNOWN.
+- Never start a mutation unless the same atomic run can also perform required validation and persist a resume checkpoint.
+- Do not queue unvalidated writes. Validate each material write before the next independent mutation.
+- At any explicit rate/quota/session/context/tool limit, stop new mutations, verify the current item if possible, persist the exact last fully validated state + next action, and report PAUSED/BLOCKED rather than COMPLETE.
+- Resume only after reloading both SOPs, live GitHub/Notion state, and the checkpoint; revalidate the last completed boundary before continuing.
+- Session/usage limits never relax Audits A/B/C, cleanup, structural verification, visual QA, or the Section 13 completion gate. Reduce batch size instead.
+
 ## 12. Canon and spoiler guardrails
 Current campaign canon overrides old prompts/summaries. Artwork can itself spoil identities, transformations, villains, artifacts, locations, deaths, betrayals, encounters, or outcomes. Keep unrevealed items DM HOLD until explicitly released. Never publish future session dates or unrevealed events as completed history.
 
