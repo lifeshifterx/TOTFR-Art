@@ -1,11 +1,11 @@
 # TOTFR Transactional Agent Deployment SOP
 
-Status: MANDATORY DEPLOYMENT MODULE — 2026-09-04-V2
+Status: MANDATORY DEPLOYMENT MODULE — 2026-09-04-V3
 
 Purpose: make Notion art deployment deterministic, idempotent, concurrency-safe, reviewable and recoverable. Current workspace is CONTAMINATED/UNTRUSTED until a new run proves otherwise.
 
 ## 1. Model
-No free-form “apply art” run. Deployment is a transaction ledger over immutable desired state.
+No free-form “apply art” run. Deployment is a transaction ledger over immutable desired-state.
 
 DISCOVER → FREEZE INVENTORY → DESIRED STATE → DRY RUN → INDEPENDENT ATTESTATION → MECHANISM CANARIES → SERIAL COMMIT → STRUCTURAL/BINARY VERIFY → AUTHENTICATED VISUAL VERIFY → DISPROOF → CLOSE.
 
@@ -68,7 +68,7 @@ Rollback is guarded mutation. Planned mutation must define prior stable values/r
 Never use full-page `replace_content` for art deploy/rollback. Preserve campaign text, child pages, relations, schema and unrelated properties.
 
 ## 10. Transport / evidence safety
-Operational Notion ceiling <=2 requests/second average; one write in flight. Respect 429 `Retry-After`; no endpoint-switch/retry storms.
+Operational ceiling <=2 Notion requests/second average; one write in flight. Respect 429 `Retry-After`; no endpoint-switch/retry storms.
 
 External import is async: `uploaded` required; pending/failed/expired/unknown = STOP.
 
@@ -91,4 +91,4 @@ Independent adversarial reviewer tries to prove: omitted target; mutable branch 
 
 Any success = NOT COMPLETE.
 
-END-OF-FILE SENTINEL: TOTFR-TRANSACTIONAL-AGENT-DEPLOYMENT-2026-09-04-V2
+END-OF-FILE SENTINEL: TOTFR-TRANSACTIONAL-AGENT-DEPLOYMENT-2026-09-04-V3
