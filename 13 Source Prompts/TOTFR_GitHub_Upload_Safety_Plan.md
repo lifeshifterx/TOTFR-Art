@@ -1,7 +1,7 @@
 # GitHub Upload Safety Plan
 
 Status: MANDATORY TRANSPORT SOP
-Version: 2026-09-04-HARDENED
+Version: 2026-09-04-HARDENED-V2
 
 ## 1. Non-negotiable text-write envelope
 Observed behavior: connector text writes have previously truncated near ~20 KB. That is a failure observation, not an operating threshold.
@@ -31,12 +31,21 @@ If a document needs more detail, split it into small required modules. The paren
 1. Max 3 production files per scheduled run.
 2. Fetch `development` before upload; skip already-valid final files.
 3. Try the approved binary path once.
-4. If it fails, do not hammer retries; use the staged fallback only after preflight.
+4. If it fails, do not hammer retries; use staged fallback only after preflight.
 5. Max 12 staging chunk writes per run.
 6. Verify final path/size before ledger update.
-7. Stop transport scheduling when authoritative audit reports Missing: 0.
+7. Stop transport scheduling when authoritative audit reports Missing: 0 for the governed target.
 
-## 4. Session/resume
+## 4. Guardrail validator gate
+Changes to README authority, mandatory SOPs, Surface Matrix schema/index/shards, Art Specs, this validator, or its workflow require:
+1. pre-write byte/sentinel checks;
+2. one write + exact re-fetch;
+3. `tools/validate_totfr_guardrails.py` to pass on the resulting tree;
+4. the `Validate TOTFR Guardrails` GitHub Action to pass when a run is available.
+
+A failed/pending/unknown validator state blocks dependent art/remaster/deployment work. Do not interpret the commit itself as validation. If Actions cannot run or cannot be inspected, perform the same validator against the exact resulting tree in a supported environment and record evidence; otherwise STOP.
+
+## 5. Session/resume
 Never start a write unless the run can reasonably perform write + re-fetch verification + checkpoint. At any rate/quota/session/tool limit, stop new writes, classify the last attempt PROVEN PERSISTED / PROVEN ABSENT / UNKNOWN when possible, checkpoint, and never infer completion.
 
-END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED
+END-OF-FILE SENTINEL: TOTFR-GITHUB-UPLOAD-SAFETY-2026-09-04-HARDENED-V2
