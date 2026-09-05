@@ -1,0 +1,2 @@
+asset_id,source_path,source_version,operation,subject,canon_status,player_visibility,notion_destination_id,notion_destination_title,container_type,view_id,surface_class,preview_storage,crop_behavior,target_aspect,target_export,safe_zone,text_policy,must_show,must_not_show,tool_capability,prompt_edit_spec_ref,audit_a,audit_b,audit_c,technical_qa,visual_qa,cross_surface_qa,design_state,remaster_path,github_sha,cleanup_state,deployment_state,structural_state,visual_state,notes
+__EOF_CONTROL__,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,TOTFR-SURFACE-MATRIX-SCHEMA-2026-09-04-HARDENED
