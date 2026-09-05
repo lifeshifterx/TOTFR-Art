@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import csv
+import os
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ.get("TOTFR_ROOT", Path(__file__).resolve().parents[1])).resolve()
 SRC = ROOT / "13 Source Prompts"
 MAX_SOP = 8000
 MAX_DIRECT = 10000
@@ -160,4 +161,4 @@ if errors:
 
 print("TOTFR GUARDRAIL VALIDATION PASSED")
 print(f"controlled_files={len(CONTROLLED)} matrix_shards={len(list(shard_dir.glob('*.csv'))) if shard_dir.exists() else 0} active_rows={len(seen_ids)}")
-print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED")
+print("END-OF-FILE SENTINEL: TOTFR-GUARDRAIL-VALIDATOR-2026-09-04-HARDENED-V2")
