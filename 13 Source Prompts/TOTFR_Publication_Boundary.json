@@ -1,7 +1,11 @@
 {
-  "schema_version": 1,
-  "public_player_repo": "lifeshifterx/TOTFR-Art",
-  "public_player_branch": "development",
+  "schema_version": 2,
+  "internal_control_repository": "lifeshifterx/TOTFR-Art",
+  "internal_control_repository_required_visibility": "PRIVATE",
+  "current_public_history_is_spoiler_contaminated": true,
+  "player_safe_public_distribution_state": "UNCONFIGURED",
+  "player_safe_public_repository": null,
+  "player_safe_public_repository_policy": "CLEAN_HISTORY_APPROVED_BINARIES_ONLY_NO_CONTROL_OR_DM_METADATA",
   "dm_private_source_state": "UNCONFIGURED",
   "dm_private_source_ref": null,
   "known_public_dm_exposure": [
@@ -11,9 +15,11 @@
     "12 Decorative/TOTFR_TITLE_CHV_v01.png"
   ],
   "policy": {
-    "PLAYER_SAFE": ["PUBLIC_COMMIT_PINNED", "NOTION_NATIVE"],
+    "PLAYER_SAFE": ["CLEAN_PUBLIC_COMMIT_PINNED", "NOTION_NATIVE"],
     "DM_HOLD": ["PRIVATE_DM", "NOTION_PRIVATE_NATIVE"],
     "mutable_branch_url_allowed_as_desired_state": false,
-    "public_dm_source_allowed": false
+    "public_dm_source_allowed": false,
+    "control_plane_allowed_in_player_safe_public_repository": false,
+    "future_or_dm_metadata_allowed_in_player_safe_public_repository": false
   }
 }
