@@ -1,13 +1,20 @@
 # TOTFR Agent Operating Contract
 
-Status: MANDATORY AGENT CONTROL — 2026-09-04-V4
+Status: MANDATORY AGENT CONTROL — 2026-09-04-V5
 
 Agents fail closed. Speed never outranks evidence, canon, spoiler safety, user content, concurrency or recoverability.
+
+## 0. VERIFY THEN TRUST
+Doubt every remembered, cached, reported, previously green, or user-described system state until the current authoritative system is read. Trust is granted only to the exact object/ref/SHA/configuration/result actually verified, and only for the dependency scope that evidence proves.
+
+A later mutation, branch move, plan change, binary change, ruleset change, Notion edit, workflow change, session restart, stale read, or contradictory evidence invalidates dependent trust and requires re-verification. Never transfer trust from one evidence domain to another.
+
+Self-declared instance IDs are not security identities. They organize work but do not prove independent principals. Tier-2 agent execution is prohibited while `TOTFR_Agent_Trust_Boundary.json` reports identity enforcement as UNCONFIGURED.
 
 ## 1. Pinned authority
 Before work resolve immutable `control_ref` from the frozen run manifest or approved control PR. Load mandatory controls from that exact commit; never silently substitute `development`, memory, chat, another branch or later commit.
 
-Mandatory: Main Guardrails, App/Tool SOP, Art QA, Upload Safety, Surface Matrix Index, Transactional Agent Deployment SOP, Agent Role Matrix, Publication Boundary and Deployment Run format.
+Mandatory: Main Guardrails, App/Tool SOP, Art QA, Upload Safety, Surface Matrix Index, Transactional Agent Deployment SOP, Agent Role Matrix, Agent Trust Boundary, Runtime Evidence Policy, Publication Boundary and Deployment Run format.
 
 No approved immutable `control_ref` = READ ONLY / STOP.
 
@@ -38,9 +45,9 @@ Only independently reviewed `final.json` may assert COMPLETE, and it binds the e
 ## 5. Independence
 No self-certification. Reviewers re-fetch evidence; author's summary is insufficient.
 
-Every mutating active run needs independent structural reviewer PASS. Tier 2 (schema/view/root navigation/player-DM/publication/control plane) also needs adversarial PASS + machine validation and, where available, one passing reviewer from a different runtime class/human. User-visible completion needs visual reviewer.
+Every mutating active run needs independent structural reviewer PASS. Tier 2 means schema/view/root navigation/player-DM/publication/control plane. Tier-2 also needs adversarial PASS + machine validation, but these do not authorize execution while identity enforcement remains UNCONFIGURED. User-visible completion needs visual reviewer.
 
-Author, executor and reviewers use distinct instance IDs, but self-declared IDs are not a security identity unless the Trust Boundary says identity enforcement is configured.
+Author, executor and reviewers use distinct instance IDs for traceability only.
 
 ## 6. Evidence domains cannot substitute
 Independent gates:
@@ -50,7 +57,7 @@ Independent gates:
 - CONCURRENCY: current stable fingerprint equals approved precondition.
 - STRUCTURE: post-write desired state/no collateral residue.
 - BINARY: delivered bytes match approved bytes when retrievable.
-- VISUAL: authenticated rendered UI evidence.
+- VISUAL: authenticated rendered UI evidence stored as a durable artifact.
 
 One pass never proves another.
 
@@ -81,4 +88,4 @@ Reset requires fresh startup, pinned current controls/required CI, changed evide
 ## 11. Completion
 No agent may claim COMPLETE from counts, API success, ledger state, upload success, state.json, or green CI alone. Completion requires all evidence domains, exact final evidence-set hashes, no UNKNOWN/CONCURRENT_CHANGE/ROLLBACK_CONFLICT/open circuit/residue, and independent adversarial disproof.
 
-END-OF-FILE SENTINEL: TOTFR-AGENT-OPERATING-CONTRACT-2026-09-04-V4
+END-OF-FILE SENTINEL: TOTFR-AGENT-OPERATING-CONTRACT-2026-09-04-V5
