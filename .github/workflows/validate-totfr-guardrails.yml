@@ -5,16 +5,22 @@ name: Validate TOTFR Guardrails
     branches: [development]
     paths:
       - 'README.md'
+      - 'AGENTS.md'
       - '13 Source Prompts/**'
       - 'tools/validate_totfr_guardrails.py'
       - 'tools/test_totfr_guardrails.py'
+      - 'tools/validate_totfr_agent_controls.py'
+      - 'tools/test_totfr_agent_controls.py'
       - '.github/workflows/validate-totfr-guardrails.yml'
   pull_request:
     paths:
       - 'README.md'
+      - 'AGENTS.md'
       - '13 Source Prompts/**'
       - 'tools/validate_totfr_guardrails.py'
       - 'tools/test_totfr_guardrails.py'
+      - 'tools/validate_totfr_agent_controls.py'
+      - 'tools/test_totfr_agent_controls.py'
       - '.github/workflows/validate-totfr-guardrails.yml'
 
 permissions:
@@ -31,7 +37,11 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: '3.12'
-      - name: Validate live guardrails, SOP budgets, evidence bindings, and Surface Matrix
+      - name: Validate base guardrails, SOP budgets, evidence bindings, and Surface Matrix
         run: python tools/validate_totfr_guardrails.py
-      - name: Prove guardrails reject known bad states
+      - name: Prove base guardrails reject known bad states
         run: python tools/test_totfr_guardrails.py
+      - name: Validate multi-agent transactional deployment controls
+        run: python tools/validate_totfr_agent_controls.py
+      - name: Prove agent controls reject fraudulent deployment states
+        run: python tools/test_totfr_agent_controls.py
