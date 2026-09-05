@@ -1,105 +1,107 @@
 # TOTFR Deployment Run Ledger
 
-Status: MANDATORY RUN FORMAT — 2026-09-04-V1
+Status: MANDATORY RUN FORMAT — 2026-09-04-V2
 
 Each deployment attempt gets a unique directory:
-
 `13 Source Prompts/Deployment Runs/<run_id>/`
 
 Never reuse a prior run directory for a materially changed plan. Create a new run/revision.
 
 ## Required layout
-- `run.json` — immutable run metadata and writer lease.
-- `plan/*.jsonl` — bounded desired-state plan shards, <=8,000 UTF-8 bytes each.
-- `attestations/*.json` — independent review of exact run/plan blob SHAs.
-- `wal/<target_id>.json` — write-ahead record created before a Notion mutation.
-- `receipts/<target_id>.json` — immutable post-mutation structural/binary result.
-- `visual/<target_id>.json` — authenticated browser visual evidence metadata.
-- `final.json` — final disproof result; created only after all gates.
+- `run.json` — run metadata and single-writer lease.
+- `plan/*.jsonl` — desired-state plan shards, <=8,000 UTF-8 bytes each.
+- `attestations/*.json` — independent reviews of exact run/plan blob SHAs.
+- `wal/<target_id>.json` — write-ahead record before mutation.
+- `receipts/<target_id>.json` — immutable post-mutation result.
+- `visual/<target_id>.json` — authenticated rendered evidence.
+- `final.json` — final adversarial disproof result.
 
 No shared append file is allowed during execution. Parallel agents create separate files.
 
-## `run.json` required fields
+## `run.json`
+Required:
 - `schema_version`: `1`
 - `run_id`
 - `status`: `DRAFT|APPROVED|EXECUTING|BLOCKED|VISUAL_QA_REQUIRED|COMPLETE`
-- `control_ref`: immutable 40-hex control commit
-- `development_head_at_plan`: 40-hex commit
+- immutable 40-hex `control_ref`
+- 40-hex `development_head_at_plan`
 - `notion_workspace_id`
 - `inventory_state`: `FROZEN|PARTIAL`
 - `inventory_evidence_ref`
 - `plan_author_agent`
-- `notion_executor_agent`: must be `notion_executor`
+- `notion_executor_agent`: exactly `notion_executor`
 - `created_at`
-- `plan_shards`: array of path + Git blob SHA
+- `plan_shards`: ordered array of repo path + Git blob SHA
 
-`APPROVED` requires `inventory_state=FROZEN` and all plan shard SHAs populated. A changed shard requires a new approval/revision.
+`APPROVED` or later requires FROZEN inventory. A changed run or plan blob invalidates all prior attestations.
 
-## Plan JSONL record
-One JSON object per line. Final line is an EOF control object.
+## Plan JSONL
+One target JSON object per line; final line is an EOF control object.
 
 Required target fields:
 - `target_id`, `asset_id`, `risk_tier` (`0|1|2`)
-- `destination_id`, `surface_class`
-- `action`
+- `destination_id`, `surface_class`, `action`
+- `mutation_key` for every mutating action; globally unique within the run, e.g. `page:<id>:property:<name>`, `page:<id>:cover`, `view:<id>:cover`
 - `privacy`: `PLAYER_SAFE|DM_HOLD`
 - `source_path`, `source_commit_sha`, `source_blob_sha`
-- `desired_source_mode`: `PINNED_EXTERNAL|NOTION_NATIVE|PRIVATE_DM|NONE`
+- `desired_source_mode`: `PINNED_EXTERNAL|NOTION_NATIVE|PRIVATE_DM|NOTION_PRIVATE_NATIVE|NONE`
 - `desired_source_ref`
-- `precondition`: stable page timestamp/fingerprint/schema/view fingerprint as applicable
+- `precondition`: stable last-edited/property/schema/view fingerprint
 - `expected_fingerprint`
 - `rollback`: exact prior stable values/reverse action
 
-Allowed actions are defined in the Transactional Agent Deployment SOP. `NOOP_ALREADY_CORRECT`, `DM_HOLD_PRIVATE`, `NO_DESTINATION`, and `BLOCKED` do not authorize Notion writes.
+Allowed actions are defined in the Transactional Agent Deployment SOP. Non-mutating dispositions never authorize Notion writes.
 
 Prohibited desired state:
-- branch-pinned `/development/` production URLs;
-- public source for `DM_HOLD`;
+- branch-pinned `/development/` URLs;
+- pinned URL commit different from `source_commit_sha`;
+- public source for DM HOLD;
 - first-block/page-content gallery preview hack;
-- missing precondition/rollback for any mutation;
-- unresolved destination or UNKNOWN disguised as empty text.
+- duplicate `mutation_key`;
+- missing precondition, expected fingerprint, or rollback for mutation;
+- unresolved destination/UNKNOWN represented as blank.
 
 ## Attestation
-Each attestation is separate and names:
-- `run_id`
-- `review_role`
-- `reviewer_agent`
+Each separate attestation names:
+- `run_id`, `review_role`, `reviewer_agent`
 - exact `run_json_blob_sha`
-- exact list of `plan_shard_blob_shas`
+- exact ordered `plan_shard_blob_shas`
 - `decision`: `PASS|FAIL`
-- `findings`
-- `evidence_refs`
+- `findings`, `evidence_refs`
 
-Reviewer must independently retrieve evidence. A changed run/plan SHA invalidates attestation. Tier-2 plans require both domain and adversarial attestations; visual Tier-2 also requires visual reviewer evidence.
+Reviewer independently retrieves evidence. Reviewer cannot be plan author or Notion executor. Changed run/plan SHA invalidates the attestation. Tier-2 requires domain + adversarial PASS; user-visible Tier-2 also needs later visual evidence.
 
 ## WAL
-Before each mutation, create a target WAL containing:
-- exact approved plan/run SHAs;
+Before each mutation create a WAL with:
+- exact approved run/plan SHAs;
+- `mutation_key`;
 - executor role;
-- precondition read/fingerprint;
-- intended mutation;
-- expected post-state;
+- exact precondition read/fingerprint;
+- intended mutation + expected post-state;
 - rollback condition/action;
 - timestamp.
 
-No WAL = no mutation.
+No valid WAL = no mutation.
 
 ## Receipt
-After the one mutation and re-read, create a target receipt containing:
-- WAL blob SHA;
-- result `SUCCESS|FAIL|CONCURRENT_CHANGE|UNKNOWN`;
-- post-state fingerprint;
-- stable Notion object/file IDs;
-- destination binary hash when retrievable;
-- sanitized evidence refs;
-- error/circuit state.
+After the single mutation and re-read, receipt contains:
+- exact `wal_blob_sha`
+- result `SUCCESS|FAIL|CONCURRENT_CHANGE|UNKNOWN`
+- `post_state_fingerprint`
+- stable Notion object/file IDs
+- destination binary hash when retrievable
+- sanitized evidence refs
+- error/circuit state
 
-Never persist signed Notion/S3 query strings, credentials, cookies, auth headers, or secrets.
+A COMPLETE run requires SUCCESS and `post_state_fingerprint == expected_fingerprint` for every mutating target.
 
 ## Visual record
-Visual evidence names stable target/run/receipt references, browser/runtime, viewport, hard-reload status, screenshot/artifact reference, and decision. A screenshot must be durable enough for later review; ephemeral signed image URLs are not visual evidence.
+Every user-visible mutating target requires a visual record before COMPLETE. It must name the exact receipt blob SHA, `review_role=visual_reviewer`, durable screenshot/artifact SHA-256, browser/runtime, viewport, hard-reload status, and `decision=PASS`. Ephemeral signed URLs are not visual evidence.
+
+## Evidence safety
+All run evidence <=8,000 bytes per file. Never persist signed Notion/S3 query strings, temporary AWS credentials, OAuth/API tokens, cookies, auth headers, or secrets.
 
 ## Final
-`COMPLETE` is allowed only when all required targets have acceptable dispositions/receipts, all applicable visual records pass, no open circuit/concurrency/rollback conflict/UNKNOWN exists, and an independent adversarial final attestation passes against the final exact run evidence.
+`COMPLETE` requires all applicable receipts and visual records to pass, no open circuit/concurrency/rollback conflict/UNKNOWN, and `final.json` containing an independent `adversarial_reviewer` PASS against the exact final run/plan SHAs.
 
-END-OF-FILE SENTINEL: TOTFR-DEPLOYMENT-RUN-LEDGER-2026-09-04-V1
+END-OF-FILE SENTINEL: TOTFR-DEPLOYMENT-RUN-LEDGER-2026-09-04-V2
