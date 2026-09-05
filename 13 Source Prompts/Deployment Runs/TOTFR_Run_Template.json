@@ -8,7 +8,10 @@
   "inventory_state": "PARTIAL",
   "inventory_evidence_ref": "UNSET",
   "plan_author_agent": "surface_canon_auditor",
+  "plan_author_instance_id": "UNSET",
+  "plan_author_runtime_class": "UNSET",
   "notion_executor_agent": "notion_executor",
+  "notion_executor_instance_id": "UNSET",
   "created_at": "1970-01-01T00:00:00Z",
   "plan_shards": []
 }
