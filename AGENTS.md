@@ -1,6 +1,6 @@
 # TOTFR Agent Operating Contract
 
-Status: MANDATORY AGENT CONTROL — 2026-09-04-V2
+Status: MANDATORY AGENT CONTROL — 2026-09-04-V3
 
 Agents fail closed. Speed never outranks evidence, canon, spoiler safety, user content, concurrency or recoverability.
 
@@ -71,7 +71,7 @@ Never probe capability with mutation. New first-block/page-content gallery previ
 Signed Notion/S3 URLs are ephemeral and may contain temporary credentials; never persist query strings/tokens. Stable IDs/canonical refs only.
 
 ## 9. Publication boundary
-Public distribution is PLAYER-SAFE only. DM HOLD/future/spoiler assets require private source boundary; a public path is disclosure. External production URLs are commit-pinned, never mutable branch URLs. Never overwrite an approved art version in place.
+Public distribution may contain PLAYER-SAFE assets only. DM HOLD/future/spoiler assets require private source boundary; a public path is disclosure. External production URLs are commit-pinned, never mutable branch URLs. Never overwrite an approved art version in place.
 
 ## 10. Circuit breaker
 First material failure: stop/re-audit item. Second same-path failure or second stage anomaly: open item/stage circuit. Third material failure in run: global mutation freeze.
@@ -81,4 +81,4 @@ Reset requires fresh startup, pinned current controls/required CI, changed evide
 ## 11. Completion
 No agent may claim COMPLETE from counts, API success, ledger state, upload success, state.json, or green CI alone. Completion requires all evidence domains, exact final evidence-set hashes, no UNKNOWN/CONCURRENT_CHANGE/ROLLBACK_CONFLICT/open circuit/residue, and independent adversarial disproof.
 
-END-OF-FILE SENTINEL: TOTFR-AGENT-OPERATING-CONTRACT-2026-09-04-V2
+END-OF-FILE SENTINEL: TOTFR-AGENT-OPERATING-CONTRACT-2026-09-04-V3
